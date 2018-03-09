@@ -1,4 +1,5 @@
-$(document).ready( function () {
+var count = 0;
+$(document).ready( function () {    
     $('#maintables').DataTable();
 });
 
@@ -29,4 +30,10 @@ function validate(){
         $("#requiredFields").removeAttr('hidden');
         document.getElementById("requiredFields").innerHTML = list;
     };
+};
+
+function moreContactFields(){
+  alert('ITS FRIDAY!');
+  count = count + 1;
+  alert(count);
 };

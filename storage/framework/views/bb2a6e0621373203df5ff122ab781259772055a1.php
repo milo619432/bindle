@@ -135,7 +135,49 @@
                             </div>
                         </div>
                     </li>
-                    <li>3</li>
+                    <li>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">First Name</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="First Name" name='firstName'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Last Name</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Last Name" name='lastName'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Phone</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Phone Number" name='phoneNumber'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Main Contact?</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-checkbox" type="checkbox" name='main' >
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-select">Select Main Role</label>
+                            <div class="uk-form-controls">
+                                <select class="uk-select" name='roleChoice'>
+                                    <option value='#'>1</option>
+                                    <option value='#'>2</option>
+                                    <option value='#'>3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <a href='#' onclick="moreContactFields();">Add More Contacts?</a>
+                    </li>
                     <li>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Licence Expiry Date</label>
