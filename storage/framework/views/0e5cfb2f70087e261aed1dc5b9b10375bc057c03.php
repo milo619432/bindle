@@ -62,7 +62,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Permissions</th>
-                    <th>Delete</th>
                 </tr>
             </thead>        
             <tbody>
@@ -70,8 +69,7 @@
                 <tr uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" id="usersRow" data-firstname ="<?php echo e($detail->firstName); ?>">
                     <td><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></td>
                     <td><?php echo e($detail->email); ?></td>
-                    <td><?php echo e($detail->Status); ?></td>
-                    <td><button class="uk-button-danger">Delete</button></td>
+                    <td><?php echo e($detail->Status); ?></td>                    
                 </tr>
                     <div id="editUserModal-<?php echo e($detail->UserID); ?>" uk-modal>                        
                         <div class="uk-modal-dialog uk-modal-body">
@@ -79,7 +77,7 @@
                             <h2 class="uk-modal-title"><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></h2>
                                 <form class="uk-form-horizontal uk-margin-large" action="<?php echo e(action('newUserController@editUser')); ?>" method="post">
                                     <div class="uk-margin">
-                                        <input hidden="true" value="<?php echo e($detail->UserID); ?>" name="UserID">
+                                        <input hidden="true" value="<?php echo e($detail->UserID); ?>" name="UserID">{
                                         <label class="uk-form-label" for="form-horizontal-text">First Name</label>
                                         <div class="uk-form-controls">
                                             <input class="uk-input" type="text" placeholder="<?php echo e($detail->firstName); ?>" value="<?php echo e($detail->firstName); ?>" name='firstName' required>
@@ -91,7 +89,7 @@
                                             <input class="uk-input" type="text" placeholder="<?php echo e($detail->lastName); ?>" value="<?php echo e($detail->lastName); ?>" name='lastName' required>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">                            
+                                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">                                    
                                     <div class="uk-margin">
                                         <label class="uk-form-label" for="form-horizontal-text">Password</label>
                                         <div class="uk-form-controls">
@@ -115,8 +113,9 @@
                                             </select>
                                         </div>
                                     </div>
-                            <input type="submit" class="btn btn-primary" value="save">
-                        </form>                            
+                                    <input type="submit" class="btn btn-primary" value="save">                                                                          
+                                </form>
+                            
                         </div>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

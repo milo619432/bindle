@@ -11,7 +11,7 @@ class login extends \Illuminate\Support\Facades\DB
             try
             {
                 $user = array(
-                    'loggedIn' => false,
+                    'loggedIn' => 0,
                     'email' => false,
                     'name' => false,
                     'level' => null
@@ -23,7 +23,7 @@ class login extends \Illuminate\Support\Facades\DB
                 {
                     if($v->email == $userEmail && password_verify($userPassword, $v->HashedPassword))
                     {
-                        $user['loggedIn'] = true;
+                        $user['loggedIn'] = 1;
                         $user['email'] = $v->email;
                         $user['name'] = $v->firstName;
                         $user['level'] = $v->Status;

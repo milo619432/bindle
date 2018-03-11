@@ -3,11 +3,6 @@ $(document).ready( function () {
     $('#maintables').DataTable();
 });
 
-//function editUser(){  
-//  var modal = document.getElementById("#usersRow");
-//  var firstname = modal.dataset.firstname;
-//  console.log(firstname);
-//};
 
 function validate(){  
     var allInputs = $(":input");
@@ -33,7 +28,47 @@ function validate(){
 };
 
 function moreContactFields(){
-  alert('ITS FRIDAY!');
-  count = count + 1;
-  alert(count);
+    count = count + 1;
+    var moreFields = "<div class='uk-width-1-2@s'>\n\
+\n\<label class='uk-form-label' for='form-horizontal-text'>First Name</label>\n\
+\n\<div class='uk-form-controls'>\n\
+\n\<input class='uk-input' type='text' placeholder='First Name' name='firstName'>\n\
+\n\</div>\n\
+\n\</div>\n\
+\n\<br>\n\
+\n\<div class='uk-width-1-2@s'>\n\
+\n\<label class='uk-form-label' for='form-horizontal-text'>Last Name</label>\n\
+\n\<div class='uk-form-controls'>\n\
+\n\<input class='uk-input' type='text' placeholder='Last Name' name='lastName'>\n\
+\n\</div>\n\
+\n\</div>\n\
+\n\<br>\n\
+\n\<div class='uk-width-1-2@s'>\n\
+\n\<label class='uk-form-label' for='form-horizontal-text'>Phone Number</label>\n\
+\n\<div class='uk-form-controls'>\n\
+\n\<input class='uk-input' type='text' placeholder='Phone Number' name='conPhone'>\n\
+\n\</div>\n\
+\n\</div>\n\
+\n\<br>\n\
+\n\<div class='uk-width-1-2@s'>\n\
+\n\<label class='uk-form-label' for='form-horizontal-text'>Main Contact?</label>\n\
+\n\<div class='uk-form-controls'>\n\
+\n\<input class='uk-checkbox' type='checkbox' name='main' >\n\
+\n\</div>\n\
+\n\</div>\n\
+\n\<div class='u-k-margin'>\n\
+<label class='uk-form-label' for='form-horizontal-select'>Select Main Role</label>\n\
+\n\<div class='uk-form-controls'>\n\
+\n\<select class='uk-select' name='roleChoice'>\n\
+\n\<option value='#'>1</option>\n\
+\n\<option value='#'>2</option>\n\
+\n\<option value='#'>3</option>\n\
+\n\</select>\n\
+\n\</div>\n\
+\n\</div>\n\
+\n\<br>\n\
+\n\<hr>\n\
+\n\<br>\n\
+</div>";    
+    $("#additionalContacts").append(moreFields);
 };

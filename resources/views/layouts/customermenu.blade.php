@@ -3,6 +3,7 @@
 <button type="button" class="btn btn-secondary" uk-toggle="target: #createCustomer">Create Customer Account</button>
 <button type="button" class="btn btn-secondary">Delete Selected Accounts</button>
 <button type="button" class="btn btn-secondary">Suspend Selected Accounts</button>
+<button type="button" class="btn btn-secondary" style="float: right">Import Customers</button>
 <hr>
 <!--Create customer modal form-->
 <div id="modal-close-outside" uk-modal>
@@ -177,6 +178,7 @@
                         </div>
                         <br>
                         <hr>
+                        <div id="additionalContacts"></div>
                         <a href='#' onclick="moreContactFields();">Add More Contacts?</a>
                     </li>
                     <li>

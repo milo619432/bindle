@@ -88,7 +88,7 @@
                                             <input class="uk-input" type="text" placeholder="{{$detail->lastName}}" value="{{$detail->lastName}}" name='lastName' required>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">                            
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">                                    
                                     <div class="uk-margin">
                                         <label class="uk-form-label" for="form-horizontal-text">Password</label>
                                         <div class="uk-form-controls">
@@ -112,9 +112,9 @@
                                             </select>
                                         </div>
                                     </div>
-                            <input type="submit" class="btn btn-primary" value="save">                            
-                        </form>
-                            <button class='btn btn-danger' href="">Delete User</button>
+                                    <input type="submit" class="btn btn-primary" value="save">                                                                          
+                                </form>
+                            
                         </div>
                     </div>
                 @endforeach

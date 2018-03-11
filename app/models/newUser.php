@@ -28,17 +28,15 @@ class newUser extends \Illuminate\Support\Facades\DB
         if($user)
         {
             try
-            {
-                $CreatedTime = date("Y-m-d h:i:sa");
+            {               
                 $hashedPassword = \Hash::make($user['password']);
                 
-                $results = DB::insert('INSERT INTO heartuser (firstName ,lastName, email, HashedPassword, CreatedTime ,Status)'
-                . ' values (?, ?, ?, ?, ?, ?)', [
+                $results = DB::insert('INSERT INTO heartuser (firstName ,lastName, email, HashedPassword,Status)'
+                . ' values (?, ?, ?, ?, ?)', [
                     $user['firstName'],
                     $user['lastName'], 
                     $user['email'],
-                    $hashedPassword,
-                    $CreatedTime, 
+                    $hashedPassword, 
                     $user['permissions']
                         ]);
                     if($results && true == $results)

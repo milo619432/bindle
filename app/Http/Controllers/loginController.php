@@ -25,8 +25,7 @@ class loginController extends Controller
             if($allUserResults)
             {
                 $login = new login();
-                $loginResult = $login->checkUser($loginFormResult, $allUserResults);
-
+                $loginResult = $login->checkUser($loginFormResult, $allUserResults);               
                 if($loginResult['loggedIn'] == true)
                 {
                     Session::put('loggedIn', $loginResult['loggedIn']);
