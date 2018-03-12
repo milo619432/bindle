@@ -69,9 +69,13 @@ class newUser extends \Illuminate\Support\Facades\DB
                     );
             if($result && true == $result)
             {
+                $SessionName = Session::get('name');
+                if($SessionName === $user['firstName'])
+                {
                 Session::put('name', $user['firstName']);
                 Session::put('email', $user['email']);
-                Session::put('status', $user['permissions']);
+                Session::put('status', $user['permissions']);                    
+                }                
                 return $result;
             }
             else 

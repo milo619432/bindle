@@ -48,12 +48,11 @@
                     <div class="uk-form-row">
                         <button class="uk-width-1-1 uk-button uk-button-primary uk-button-large">Login</button>
                     </div>
-                    <div class="uk-form-row uk-text-small">
-                        <label class="uk-float-left"><input type="checkbox"> Remember Me</label>
+                    <div class="uk-form-row uk-text-small">                        
                         <a class="uk-float-right uk-link uk-link-muted" href="#">Forgot Password?</a>
                     </div>
                 </form>
-                @if( isset($message))
+                @if(isset($message))
                 {!! $message !!}
                 @endif
         </div>
