@@ -91,13 +91,59 @@ class newUserController extends Controller
         }
     }
     
-    public function deleteUser($user)
+    public function deleteUser()
     {
         try
         {
-            die('Gone bitches');
+            $UserID = $_GET['user'];
+            $name = $_GET['name'];
+            $userDetails = 
+                [
+                    'id' => $UserID,
+                    'name' => $name
+                ];
+            $user = new newUser();
+            $userResult = $user->suspendUserAccess($userDetails);
+            if(true == $userResult)
+            {
+                $ammendedMessage = "<div class='alert alert-success' style='text-align:center'>User account suspended</div>";
+            }
+            else
+            {
+                $ammendedMessage = "<div class='alert alert-danger' style='text-align:center'>Could not ammend User account</div>";
+            }
+            $allUsersResult = $user->getAllUsers();
+            return view('layouts.admin', ['ammendResult' => $ammendedMessage], ['allUsers' => $allUsersResult]);
         } catch (Exception $ex) {
             //todo log errors
+        }
+    }
+    
+    public function activateUser()
+    {
+        try
+        {
+            $UserID = $_GET['user'];
+            $name = $_GET['name'];
+            $userDetails = 
+                [
+                    'id' => $UserID,
+                    'name' => $name
+                ];
+            $user = new newUser();
+            $userResult = $user->activateUserAccess($userDetails);
+            if(true == $userResult)
+            {
+                $ammendedMessage = "<div class='alert alert-success' style='text-align:center'>User account activated</div>";
+            }
+            else
+            {
+                $ammendedMessage = "<div class='alert alert-danger' style='text-align:center'>Could not activate User account</div>";
+            }
+            $allUsersResult = $user->getAllUsers();
+            return view('layouts.admin', ['ammendResult' => $ammendedMessage], ['allUsers' => $allUsersResult]);
+        } catch (Exception $ex) {
+
         }
     }
 }

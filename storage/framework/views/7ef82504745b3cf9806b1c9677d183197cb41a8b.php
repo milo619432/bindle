@@ -62,14 +62,20 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Permissions</th>
+                    <th>Suspend</th>
                 </tr>
             </thead>        
             <tbody>
                 <?php $__currentLoopData = $allUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $users => $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" id="usersRow" data-firstname ="<?php echo e($detail->firstName); ?>">
-                    <td><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></td>
-                    <td><?php echo e($detail->email); ?></td>
-                    <td><?php echo e($detail->Status); ?></td>                    
+                <tr id="usersRow">
+                    <td uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" ><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></td>
+                    <td uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" ><?php echo e($detail->email); ?></td>
+                    <td uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" ><?php echo e($detail->Status); ?></td>
+                    <?php if($detail->live === 1): ?>
+                    <td><a href="/deleteUser?user=<?php echo e($detail->UserID); ?>&name=<?php echo e($detail->firstName); ?>" class="btn btn-danger">Suspend User</a></td>
+                    <?php else: ?>
+                    <td><a href="/activateUser?user=<?php echo e($detail->UserID); ?>&name=<?php echo e($detail->firstName); ?>" class="btn btn-success">Activate User</a></td>
+                    <?php endif; ?>
                 </tr>
                     <div id="editUserModal-<?php echo e($detail->UserID); ?>" uk-modal>                        
                         <div class="uk-modal-dialog uk-modal-body">
@@ -89,7 +95,7 @@
                                             <input class="uk-input" type="text" placeholder="<?php echo e($detail->lastName); ?>" value="<?php echo e($detail->lastName); ?>" name='lastName' required>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">                            
+                                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">                                    
                                     <div class="uk-margin">
                                         <label class="uk-form-label" for="form-horizontal-text">Password</label>
                                         <div class="uk-form-controls">
@@ -113,9 +119,9 @@
                                             </select>
                                         </div>
                                     </div>
-                            <input type="submit" class="btn btn-primary" value="save">                            
-                        </form>
-                            <button class='btn btn-danger' href="">Delete User</button>
+                                    <input type="submit" class="btn btn-primary" value="save">                                                                          
+                                </form>
+                            
                         </div>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

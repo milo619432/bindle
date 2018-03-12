@@ -83,4 +83,47 @@ class newUser extends \Illuminate\Support\Facades\DB
             //todo log error
         }
     }
+    
+    public function suspendUserAccess($user)
+    {
+        try
+        {
+            if($user)
+            {
+                $result = DB::update('UPDATE heartuser '
+                    . 'SET live = 0 '
+                    . 'WHERE UserID = ' . $user['id'] . ' '
+                    . 'AND firstName = "' . $user['name'] . '";');
+                return $result;
+            } 
+            else
+            {
+                return false;
+            }
+            
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
+    
+    public function activateUserAccess($user)
+    {
+        try
+        {
+            if($user)            
+            {
+                $result = DB::update('UPDATE heartuser '
+                    . 'SET live = 1 '
+                    . 'WHERE UserID = ' . $user['id'] . ' '
+                    . 'AND firstName = "' . $user['name'] . '";');
+                return $result;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
 }

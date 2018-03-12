@@ -61,14 +61,20 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Permissions</th>
+                    <th>Suspend</th>
                 </tr>
             </thead>        
             <tbody>
                 @foreach($allUsers as $users => $detail)
-                <tr uk-toggle="target: #editUserModal-{{$detail->UserID}}" id="usersRow" data-firstname ="{{ $detail->firstName }}">
-                    <td>{{ $detail->firstName }} {{ $detail->lastName }}</td>
-                    <td>{{ $detail->email }}</td>
-                    <td>{{ $detail->Status }}</td>                    
+                <tr id="usersRow">
+                    <td uk-toggle="target: #editUserModal-{{$detail->UserID}}" >{{ $detail->firstName }} {{ $detail->lastName }}</td>
+                    <td uk-toggle="target: #editUserModal-{{$detail->UserID}}" >{{ $detail->email }}</td>
+                    <td uk-toggle="target: #editUserModal-{{$detail->UserID}}" >{{ $detail->Status }}</td>
+                    @if($detail->live === 1)
+                    <td><a href="/deleteUser?user={{$detail->UserID}}&name={{$detail->firstName}}" class="btn btn-danger">Suspend User</a></td>
+                    @else
+                    <td><a href="/activateUser?user={{$detail->UserID}}&name={{$detail->firstName}}" class="btn btn-success">Activate User</a></td>
+                    @endif
                 </tr>
                     <div id="editUserModal-{{$detail->UserID}}" uk-modal>                        
                         <div class="uk-modal-dialog uk-modal-body">

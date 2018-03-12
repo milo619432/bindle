@@ -78,3 +78,5 @@ Route::post('/login', 'loginController@logUserIn');
 Route::get('/logout', 'loginController@logOut');
 
 Route::get('/deleteUser', 'newUserController@deleteUser');
+
+Route::get('/activateUser', 'newUserController@activateUser');
