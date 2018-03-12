@@ -80,3 +80,5 @@ Route::get('/logout', 'loginController@logOut');
 Route::get('/deleteUser', 'newUserController@deleteUser');
 
 Route::get('/activateUser', 'newUserController@activateUser');
+
+Route::post('addCustomer', 'customerController@addSingleCustomer');

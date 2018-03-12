@@ -9,17 +9,17 @@
 <div id="modal-close-outside" uk-modal>
     <div id="createCustomer" uk-modal class="uk-modal-container">
         <div class="uk-modal-dialog uk-modal-body">
-            <h2 class="uk-modal-title">Customer Form</h2>
-            <p class="uk-text-meta uk-text-primary">The fields on ALL tabs must be filled in or the submit button will remain disabled.</p>
+            <h2 class="uk-modal-title">Customer Form</h2>            
             <div class="alert alert-danger" id="requiredFields" hidden>
                 <p>The following fields are required before the account can be created.</p>
             </div>
-            <form class="uk-grid-small uk-form-horizontal" uk-grid action="" method="post">
+            <form class="uk-grid-small uk-form-horizontal" uk-grid action="{{action('customerController@addSingleCustomer')}}" method="post">
                 <ul class="uk-subnav uk-subnav-pill" uk-switcher>
                     <li><a href="#">Customer Information</a></li>
                     <li><a href="#">System Information</a></li>
                     <li><a href="#">Customer Contact Details</a></li>
-                    <li><a href="#">licensing and Account Information</a></li>
+                    <li><a href="#">Accounts Information</a></li>
+                    <li><a href="#">Wholesaler Link Information</a>
                 </ul>
                 <ul class="uk-switcher uk-margin"   style="width: 100%">
                     <li>
@@ -131,9 +131,64 @@
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Terminal Server?</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-checkbox" type="checkbox" name='terminalserver' >
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">PulseOffice Version #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="PulseOffice Version #" name='pulseVersion'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">OPXML PC</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="OPXML PC" name='opxmlpc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Sage PC</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Sage PC" name='sagepc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Sage Version #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Sage Version #" name='sagenum'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">PulseStore Shop #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="PulseStore Shop #" name='pulsestorenumber'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">PulseStore Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="PulseStore Password" name='pulsestorepassword'>
+                            </div>
+                        </div>
+                        <br>                        
+                        <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Special Upgrade Requirements</label>
                             <div class="uk-form-controls">
                                 <textarea class="uk-textarea" rows="6" placeholder="Upgrade requirements" name='upgradeNotes' ></textarea>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Network Details</label>
+                            <div class="uk-form-controls">
+                                <textarea class="uk-textarea" rows="6" placeholder="Network Details" name='network' ></textarea>
                             </div>
                         </div>
                     </li>
@@ -209,6 +264,105 @@
                                 <textarea class="uk-textarea" rows="6" placeholder="Licence Notes" name='licenceNotes' ></textarea>
                             </div>
                         </div>                
+                    </li>
+                    <li>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Vow Account #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Vow Account #" name='vowacc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Vow Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Vow Password" name='vowpass'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Vow Discount %</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="number" min="0" max="100" placeholder="Vow Discount" name='vowdisc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Spicer Account #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Spicers Account #" name='spicacc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Spicers Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Spicers Password" name='spicpass'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Antalis Account #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Antalis Account #" name='antacc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Antalis Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Antalis Password" name='antpass'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Truline Account #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Truline Account #" name='truacc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Truline Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Truline Password" name='trupass'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Beta Account</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Beta Account" name='betaacc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Beta Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Beta Password" name='betapass'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Exertis Account #</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Exertis Account #" name='exertacc'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Exertis Password</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Exertis Password" name='exertpass'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-horizontal-text">Buying Group</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" type="text" placeholder="Buying Group" name='buyinggroup'>
+                            </div>
+                        </div>                        
                     </li>
                 </ul>             
                 <br>
