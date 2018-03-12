@@ -81,4 +81,4 @@ Route::get('/deleteUser', 'newUserController@deleteUser');
 
 Route::get('/activateUser', 'newUserController@activateUser');
 
-Route::post('addCustomer', 'customerController@addSingleCustomer');
+Route::post('/addCustomer', 'customerController@addSingleCustomer');

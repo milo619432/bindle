@@ -62,14 +62,20 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Permissions</th>
+                    <th>Suspend</th>
                 </tr>
             </thead>        
             <tbody>
                 <?php $__currentLoopData = $allUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $users => $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" id="usersRow" data-firstname ="<?php echo e($detail->firstName); ?>">
-                    <td><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></td>
-                    <td><?php echo e($detail->email); ?></td>
-                    <td><?php echo e($detail->Status); ?></td>                    
+                <tr id="usersRow">
+                    <td uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" ><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></td>
+                    <td uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" ><?php echo e($detail->email); ?></td>
+                    <td uk-toggle="target: #editUserModal-<?php echo e($detail->UserID); ?>" ><?php echo e($detail->Status); ?></td>
+                    <?php if($detail->live === 1): ?>
+                    <td><a href="/deleteUser?user=<?php echo e($detail->UserID); ?>&name=<?php echo e($detail->firstName); ?>" class="btn btn-danger">Suspend User</a></td>
+                    <?php else: ?>
+                    <td><a href="/activateUser?user=<?php echo e($detail->UserID); ?>&name=<?php echo e($detail->firstName); ?>" class="btn btn-success">Activate User</a></td>
+                    <?php endif; ?>
                 </tr>
                     <div id="editUserModal-<?php echo e($detail->UserID); ?>" uk-modal>                        
                         <div class="uk-modal-dialog uk-modal-body">
@@ -77,7 +83,7 @@
                             <h2 class="uk-modal-title"><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></h2>
                                 <form class="uk-form-horizontal uk-margin-large" action="<?php echo e(action('newUserController@editUser')); ?>" method="post">
                                     <div class="uk-margin">
-                                        <input hidden="true" value="<?php echo e($detail->UserID); ?>" name="UserID">{
+                                        <input hidden="true" value="<?php echo e($detail->UserID); ?>" name="UserID">
                                         <label class="uk-form-label" for="form-horizontal-text">First Name</label>
                                         <div class="uk-form-controls">
                                             <input class="uk-input" type="text" placeholder="<?php echo e($detail->firstName); ?>" value="<?php echo e($detail->firstName); ?>" name='firstName' required>
@@ -94,6 +100,7 @@
                                         <label class="uk-form-label" for="form-horizontal-text">Password</label>
                                         <div class="uk-form-controls">
                                             <input class="uk-input" type="password" placeholder="Enter a new password" value="" name='pwd' required>
+                                            
                                         </div>
                                     </div>
                                     <div class="uk-margin">
