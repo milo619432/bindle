@@ -100,6 +100,7 @@
                                         <label class="uk-form-label" for="form-horizontal-text">Password</label>
                                         <div class="uk-form-controls">
                                             <input class="uk-input" type="password" placeholder="Enter a new password" value="" name='pwd' required>
+                                            
                                         </div>
                                     </div>
                                     <div class="uk-margin">
