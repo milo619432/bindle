@@ -83,7 +83,7 @@
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Fax</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Fax" name='fax' required>
+                                <input class="uk-input" type="text" placeholder="Fax" name='fax' >
                             </div>
                         </div>
                         <br>
@@ -203,42 +203,42 @@
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">First Name</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="First Name" name='conFirstName'>
+                                <input class="uk-input" type="text" placeholder="First Name" name='conFirstName0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Last Name</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Last Name" name='conLastName'>
+                                <input class="uk-input" type="text" placeholder="Last Name" name='conLastName0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Phone</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Phone Number" name='conPhoneNumber'>
+                                <input class="uk-input" type="text" placeholder="Phone Number" name='conPhoneNumber0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Email</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="email" placeholder="Email" name='conEmail'>
+                                <input class="uk-input" type="email" placeholder="Email" name='conEmail0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Main Contact?</label>
                             <div class="uk-form-controls">
-                                <input class="uk-checkbox" type="checkbox" name='conMain' >
+                                <input class="uk-checkbox" type="checkbox" name='conMain0' >
                             </div>
                         </div>
                         <br>
                         <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-select">Select Main Role</label>
                             <div class="uk-form-controls">
-                                <select class="uk-select" name='conRoleChoice'>
+                                <select class="uk-select" name='conRoleChoice0'>
                                     <option value='1'>1</option>
                                     <option value='2'>2</option>
                                     <option value='3'>3</option>

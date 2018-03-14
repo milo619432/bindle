@@ -161,18 +161,23 @@ class customerModel extends Model
                             //insert contacts 
                             $contactCount = 0;
                             foreach($contacts as $key => $value)
-                            {
-                                $checkBox = $value['conMain']
-                                if($value['conMain'] . $contactCount == null && isset($value['conMain'] . $contactCount))
+                            {                                
+                                if($value['conMain' . $contactCount]  == null)
                                 {
-                                    $value['conMain'] . $contactCount = 0;
+                                    $value['conMain' . $contactCount]  = 0;
                                 } 
                                 else 
                                 {
-                                    $value['conMain'] . $contactCount = 1;
+                                    $value['conMain' . $contactCount] = 1;
                                 }
                                 
-                                $contactsResult = DB::insert('INSERT INTO contacts ('
+                                if(strlen($value['conFirstName' . $contactCount]) == 0 )
+                                {
+                                    break;
+                                }
+                                else 
+                                {
+                                    $contactsResult = DB::insert('INSERT INTO contacts ('
                                         . 'CustID, '
                                         . 'FirstName, '
                                         . 'SurName, '
@@ -182,14 +187,16 @@ class customerModel extends Model
                                         . 'RoleID) values (?,?,?,?,?,?,?)', 
                                         [
                                             $custID,
-                                            $value['conFirstName'] . $contactCount,
-                                            $value['conLastName'] . $contactCount,
-                                            $value['conPhone'] . $contactCount,
-                                            $value['conEmail'] . $contactCount,
-                                            $value['conMain'] . $contactCount,
-                                            $value['conRole'] . $contactCount
+                                            $value['conFirstName' . $contactCount] ,
+                                            $value['conLastName'. $contactCount],
+                                            $value['conPhone' . $contactCount],
+                                            $value['conEmail' . $contactCount],
+                                            $value['conMain' . $contactCount ],
+                                            $value['conRole' . $contactCount]
                                         ]);
-                                $count ++;
+                                $contactCount ++;
+                                }
+                                
                             }
                         }
                         return $resultsMessages;

@@ -61,12 +61,12 @@ class customerController extends Controller
                 $contactArray = [
                     '0' => 
                     [
-                        'conFirstName0' => $request->conFirstName,
-                        'conLastName0' => $request->conLastName,
-                        'conEmail0' => $request->conEmail,
-                        'conPhone0' => $request->conPhoneNumber,
-                        'conMain0' => $request->conMain,
-                        'conRole0' => $request->conRoleChoice,
+                        'conFirstName0' => $request->conFirstName0,
+                        'conLastName0' => $request->conLastName0,
+                        'conEmail0' => $request->conEmail0,
+                        'conPhone0' => $request->conPhoneNumber0,
+                        'conMain0' => $request->conMain0,
+                        'conRole0' => $request->conRoleChoice0,
                     ],
                     '1' => 
                     [
