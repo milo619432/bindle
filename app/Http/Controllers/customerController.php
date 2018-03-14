@@ -59,59 +59,59 @@ class customerController extends Controller
                     'buyingGroup' => $request->buyinggroup
                 ];
                 $contactArray = [
-                    'contact0' => 
+                    '0' => 
                     [
-                        'conFirstName' => $request->conFirstName,
-                        'conLastName' => $request->conLastName,
-                        'conEmail' => $request->conEmail,
-                        'conPhone' => $request->conPhoneNumber,
-                        'conMain' => $request->conMain,
-                        'conRole' => $request->conRoleChoice,
+                        'conFirstName0' => $request->conFirstName,
+                        'conLastName0' => $request->conLastName,
+                        'conEmail0' => $request->conEmail,
+                        'conPhone0' => $request->conPhoneNumber,
+                        'conMain0' => $request->conMain,
+                        'conRole0' => $request->conRoleChoice,
                     ],
-                    'contact1' => 
+                    '1' => 
                     [
-                        'conFirstName1' => $request->conFirstName1,
-                        'conLastName1' => $request->conLastName1,
-                        'conEmail1' => $request->conEmail1,
-                        'conPhone1' => $request->conPhoneNumber1,
-                        'conMain1' => $request->conMain1,
-                        'conRole1' => $request->conRoleChoice1,
+                        'conFirstName1' => $request->conFirstName,
+                        'conLastName1' => $request->conLastName,
+                        'conEmail1' => $request->conEmail,
+                        'conPhone1' => $request->conPhoneNumber,
+                        'conMain1' => $request->conMain,
+                        'conRole1' => $request->conRoleChoice,
                     ],
-                    'contact2' => 
+                    '2' => 
                     [
-                        'conFirstName2' => $request->conFirstName1,
-                        'conLastName2' => $request->conLastName1,
-                        'conEmail2' => $request->conEmail1,
-                        'conPhone2' => $request->conPhoneNumber1,
-                        'conMain2' => $request->conMain1,
-                        'conRole2' => $request->conRoleChoice1,
+                        'conFirstName2' => $request->conFirstName,
+                        'conLastName2' => $request->conLastName,
+                        'conEmail2' => $request->conEmail,
+                        'conPhone2' => $request->conPhoneNumber,
+                        'conMain2' => $request->conMain,
+                        'conRole2' => $request->conRoleChoice,
                     ],
-                    'contact3' => 
+                    '3' => 
                     [
-                        'conFirstName3' => $request->conFirstName1,
-                        'conLastName3' => $request->conLastName1,
-                        'conEmail3' => $request->conEmail1,
-                        'conPhone3' => $request->conPhoneNumber1,
-                        'conMain3' => $request->conMain1,
-                        'conRole3' => $request->conRoleChoice1,
+                        'conFirstName3' => $request->conFirstName,
+                        'conLastName3' => $request->conLastName,
+                        'conEmail3' => $request->conEmail,
+                        'conPhone3' => $request->conPhoneNumber,
+                        'conMain3' => $request->conMain,
+                        'conRole3' => $request->conRoleChoice,
                     ],
-                    'contact4' => 
+                    '4' => 
                     [
-                        'conFirstName4' => $request->conFirstName1,
-                        'conLastName4' => $request->conLastName1,
-                        'conEmail4' => $request->conEmail1,
-                        'conPhone4' => $request->conPhoneNumber1,
-                        'conMain4' => $request->conMain1,
-                        'conRole4' => $request->conRoleChoice1,
+                        'conFirstName4' => $request->conFirstName,
+                        'conLastName4' => $request->conLastName,
+                        'conEmail4' => $request->conEmail,
+                        'conPhone4' => $request->conPhoneNumber,
+                        'conMain4' => $request->conMain,
+                        'conRole4' => $request->conRoleChoice,
                     ],
-                    'contact5' => 
+                    '5' => 
                     [
-                        'conFirstName5' => $request->conFirstName1,
-                        'conLastName5' => $request->conLastName1,
-                        'conEmail5' => $request->conEmail1,
-                        'conPhone5' => $request->conPhoneNumber1,
-                        'conMain5' => $request->conMain1,
-                        'conRole5' => $request->conRoleChoice1,
+                        'conFirstName5' => $request->conFirstName,
+                        'conLastName5' => $request->conLastName,
+                        'conEmail5' => $request->conEmail,
+                        'conPhone5' => $request->conPhoneNumber,
+                        'conMain5' => $request->conMain,
+                        'conRole5' => $request->conRoleChoice,
                     ]
                 ];
                 $customer = new customerModel();
