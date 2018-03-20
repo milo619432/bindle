@@ -2,8 +2,73 @@
 <button type="button" class="btn btn-secondary" uk-toggle="target: #createCustomer">Create Customer Account</button>
 <button type="button" class="btn btn-secondary">Delete Selected Accounts</button>
 <button type="button" class="btn btn-secondary">Suspend Selected Accounts</button>
-<button type="button" class="btn btn-secondary" style="float: right">Import Customers</button>
+<input type="file" name="file" id="file" class="inputfile" hidden="true"/>
+<label for="file" class="btn btn-secondary" style="float:right;">Choose a Customer import file</label>
 <hr>
+<?php if(isset ($result)): ?>
+<?php echo $result; ?>
+
+<?php endif; ?>
+<?php if(isset($customers)): ?>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Main Phone</th>
+            <th scope="col">Main Email</th>
+            <th scope="col">Main Contact</th>
+            <th scope="col">Hosted Pulse</th>
+            <th scope="col">PulseStore</th>
+            <th scope="col">On Hold</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cust => $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($detail->OnHold === 1): ?>
+        <tr  style="background-color:#d9534f " id="custRow">
+        <?php else: ?>
+        <tr id="custRow">
+        <?php endif; ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->CustCode); ?></th>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->CustName); ?></th>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->MainPhone); ?></th>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->MainEmail); ?></th>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->FirstName); ?> <?php echo e($detail->SurName); ?></th>
+            <?php if($detail->hosted === 1): ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Yes</th>
+            <?php else: ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >No</th>
+            <?php endif; ?>
+            <?php if($detail->PulseStore === 1): ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Yes</th>
+            <?php else: ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >No</th>
+            <?php endif; ?>            
+            <?php if($detail->OnHold === 1): ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >On Hold</th>
+            <?php else: ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Not On Hold</th>
+            <?php endif; ?>
+        </tr>
+        <!--Edit customer-->
+<div id="modal-close-outside" uk-modal>
+    <div id="editCustModal-<?php echo e($detail->custID); ?>" uk-modal class="uk-modal-container">
+        <div class="uk-modal-dialog uk-modal-body">
+            <h2 class="uk-modal-title" style="text-align: center">Editing <?php echo e($detail->CustName); ?></h2>           
+        </div>
+    </div>
+</div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </tbody>
+    
+</table>
+<?php else: ?>
+<div class="alert alert-danger">
+    <h3>You currently have no customer accounts</h3>
+</div>
+<?php endif; ?>
+
 <!--Create customer modal form-->
 <div id="modal-close-outside" uk-modal>
     <div id="createCustomer" uk-modal class="uk-modal-container">
@@ -82,7 +147,7 @@
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Fax</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Fax" name='fax' required>
+                                <input class="uk-input" type="text" placeholder="Fax" name='fax' >
                             </div>
                         </div>
                         <br>
@@ -202,42 +267,42 @@
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">First Name</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="First Name" name='conFirstName'>
+                                <input class="uk-input" type="text" placeholder="First Name" name='conFirstName0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Last Name</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Last Name" name='conLastName'>
+                                <input class="uk-input" type="text" placeholder="Last Name" name='conLastName0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Phone</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Phone Number" name='conPhoneNumber'>
+                                <input class="uk-input" type="text" placeholder="Phone Number" name='conPhoneNumber0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Email</label>
                             <div class="uk-form-controls">
-                                <input class="uk-input" type="email" placeholder="Email" name='conEmail'>
+                                <input class="uk-input" type="email" placeholder="Email" name='conEmail0'>
                             </div>
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Main Contact?</label>
                             <div class="uk-form-controls">
-                                <input class="uk-checkbox" type="checkbox" name='conMain' >
+                                <input class="uk-checkbox" type="checkbox" name='conMain0' >
                             </div>
                         </div>
                         <br>
                         <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-select">Select Main Role</label>
                             <div class="uk-form-controls">
-                                <select class="uk-select" name='conRoleChoice'>
+                                <select class="uk-select" name='conRoleChoice0'>
                                     <option value='1'>1</option>
                                     <option value='2'>2</option>
                                     <option value='3'>3</option>
@@ -391,5 +456,6 @@
         </div>
     </div>
 </div>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

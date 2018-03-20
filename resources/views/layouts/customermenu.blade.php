@@ -3,8 +3,72 @@
 <button type="button" class="btn btn-secondary" uk-toggle="target: #createCustomer">Create Customer Account</button>
 <button type="button" class="btn btn-secondary">Delete Selected Accounts</button>
 <button type="button" class="btn btn-secondary">Suspend Selected Accounts</button>
-<button type="button" class="btn btn-secondary" style="float: right">Import Customers</button>
+<input type="file" name="file" id="file" class="inputfile" hidden="true"/>
+<label for="file" class="btn btn-secondary" style="float:right;">Choose a Customer import file</label>
 <hr>
+@if(isset ($result))
+{!! $result !!}
+@endif
+@if(isset($customers))
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Main Phone</th>
+            <th scope="col">Main Email</th>
+            <th scope="col">Main Contact</th>
+            <th scope="col">Hosted Pulse</th>
+            <th scope="col">PulseStore</th>
+            <th scope="col">On Hold</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($customers as $cust => $detail)
+        @if($detail->OnHold === 1)
+        <tr  style="background-color:#d9534f " id="custRow">
+        @else
+        <tr id="custRow">
+        @endif
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->CustCode}}</th>
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->CustName}}</th>
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->MainPhone}}</th>
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->MainEmail}}</th>
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->FirstName}} {{$detail->SurName}}</th>
+            @if($detail->hosted === 1)
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Yes</th>
+            @else
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >No</th>
+            @endif
+            @if($detail->PulseStore === 1)
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Yes</th>
+            @else
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >No</th>
+            @endif            
+            @if($detail->OnHold === 1)
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >On Hold</th>
+            @else
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Not On Hold</th>
+            @endif
+        </tr>
+        <!--Edit customer-->
+<div id="modal-close-outside" uk-modal>
+    <div id="editCustModal-{{$detail->custID}}" uk-modal class="uk-modal-container">
+        <div class="uk-modal-dialog uk-modal-body">
+            <h2 class="uk-modal-title" style="text-align: center">Editing {{$detail->CustName}}</h2>           
+        </div>
+    </div>
+</div>
+        @endforeach
+    </tbody>
+    
+</table>
+@else
+<div class="alert alert-danger">
+    <h3>You currently have no customer accounts</h3>
+</div>
+@endif
+
 <!--Create customer modal form-->
 <div id="modal-close-outside" uk-modal>
     <div id="createCustomer" uk-modal class="uk-modal-container">
@@ -392,4 +456,5 @@
         </div>
     </div>
 </div>
+
 @endsection

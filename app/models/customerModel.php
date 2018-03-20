@@ -4,10 +4,40 @@ namespace App\models;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 
 class customerModel extends Model
 {
+    
+    public function getAllCustomers()
+    {
+        try
+        {
+            $customers = DB::select("SELECT customers.custID, 
+                                    customers.CustCode,
+                                    customers.CustName, 
+                                    customers.MainPhone, 
+                                    customers.MainEmail,
+                                    contacts.FirstName,
+                                    contacts.SurName,
+                                    systemdata.hosted,
+                                    systemdata.PulseStore,
+                                    customers.OnHold 
+                                    FROM customers 
+                                    INNER JOIN contacts 
+                                    ON customers.CustID=contacts.CustID 
+                                    INNER JOIN systemdata 
+                                    ON customers.CustID=systemdata.CustID 
+                                    WHERE contacts.MainPulseContact = 1;");          
+            
+            return $customers;
+        } catch (Exception $ex) {
+            //todo logerrors
+        }
+    }
+    
     public function addSingleCustomer($details, $contacts)
     {
         try
@@ -23,6 +53,14 @@ class customerModel extends Model
             //if form details are here, deal with checkbox values and insert base customer data
             if($details)
             {                
+                if($details['hosted'] == null)
+                {
+                    $details['hosted'] = 0;
+                }
+                else
+                {
+                    $details['hosted'] = 1;
+                }
                 if($details['onHold'] == null)
                 {
                     $details['onHold'] = 0;
@@ -125,7 +163,9 @@ class customerModel extends Model
                                 . 'PulseStore, '
                                 . 'PulseStoreShopNumber, '
                                 . 'BuyingGroup, '
-                                . 'PulseStorePassword) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+                                . 'PulseStorePassword, '
+                                . 'hosted)'
+                                . ' values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
                                 [
                                     $custID,
                                     $details['pulseOfficeVersion'],
@@ -151,7 +191,8 @@ class customerModel extends Model
                                     $details['pulseStore'],
                                     $details['pulsestoreNumber'],
                                     $details['buyingGroup'],
-                                    $details['pulsestorePassword']
+                                    $details['pulsestorePassword'],
+                                    $details['hosted']
                                 ]);
                         
                         //if system details insert successful insert contact data
@@ -198,6 +239,10 @@ class customerModel extends Model
                                 }
                                 
                             }
+                        if($contactsResult && True == $contactsResult)
+                        {
+                            $resultsMessages['contactsResult'] = true;
+                        }
                         }
                         return $resultsMessages;
                     }

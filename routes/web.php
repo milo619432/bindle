@@ -25,9 +25,7 @@ Route::get('/dash', function () {
 
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
-Route::get('/customers', function() {
-   return view ('layouts.customermenu');
-})->name('layouts.customermenu');
+Route::get('/customers', 'customerController@getCustomers')->name('layouts.customermenu');
 
 Route::get('/issues', function() {
    return view ('layouts.issues');

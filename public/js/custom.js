@@ -34,21 +34,21 @@ function moreContactFields(){
     var moreFields = "<div class='uk-width-1-2@s'>\n\
 \n\<label class='uk-form-label' for='form-horizontal-text'>First Name</label>\n\
 \n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='text' placeholder='First Name' name='conFirstName'" + count +" required>\n\
+\n\<input class='uk-input' type='text' placeholder='First Name' name='conFirstName" + count +"' required>\n\
 \n\</div>\n\
 \n\</div>\n\
 \n\<br>\n\
 \n\<div class='uk-width-1-2@s'>\n\
 \n\<label class='uk-form-label' for='form-horizontal-text'>Last Name</label>\n\
 \n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='text' placeholder='Last Name' name='conLastName'" + count +" required>\n\
+\n\<input class='uk-input' type='text' placeholder='Last Name' name='conLastName" + count +"' required>\n\
 \n\</div>\n\
 \n\</div>\n\
 \n\<br>\n\
 \n\<div class='uk-width-1-2@s'>\n\
 \n\<label class='uk-form-label' for='form-horizontal-text'>Phone Number</label>\n\
 \n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='text' placeholder='Phone Number' name='conPhoneNumber'" + count +">\n\
+\n\<input class='uk-input' type='text' placeholder='Phone Number' name='conPhoneNumber" + count +"'>\n\
 \n\<input type='hidden' name='count' value='" + count +"'\n\
 \n\</div>\n\
 \n\</div>\n\
@@ -63,13 +63,13 @@ function moreContactFields(){
 \n\<div class='uk-width-1-2@s'>\n\
 \n\<label class='uk-form-label' for='form-horizontal-text'>Main Contact?</label>\n\
 \n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-checkbox' type='checkbox' name='conMain'" + count +" >\n\
+\n\<input class='uk-checkbox' type='checkbox' name='conMain" + count +"' >\n\
 \n\</div>\n\
 \n\</div>\n\
 \n\<div class='u-k-margin'>\n\
 <label class='uk-form-label' for='form-horizontal-select'>Select Main Role</label>\n\
 \n\<div class='uk-form-controls'>\n\
-\n\<select class='uk-select' name='conRoleChoice'" + count +">\n\
+\n\<select class='uk-select' name='conRoleChoice" + count +"'>\n\
 \n\<option value='1'>1</option>\n\
 \n\<option value='2'>2</option>\n\
 \n\<option value='3'>3</option>\n\

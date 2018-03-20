@@ -7,6 +7,27 @@ use App\models\customerModel;
 
 class customerController extends Controller
 {
+    
+    public function getCustomers()
+    {
+        try
+        {
+            $customers = new customerModel();
+            $allCustomers = $customers->getAllCustomers();
+            
+            if(sizeof($allCustomers) > 0)
+            {
+                return view('layouts.customermenu', ['customers' => $allCustomers]);
+            }
+            else
+            {
+                return view('layouts.customermenu');
+            }
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
+    
     public function addSingleCustomer(request $request)
     {
         try
@@ -35,7 +56,7 @@ class customerController extends Controller
                     'pulseLinkPc' => $request->pulselinkpc, 
                     'sageVersion' => $request->sagenum,
                     'pulsestoreNumber' => $request->pulsestorenumber,
-                    'pulsestorePassword' => $request->pulsestorePassword,
+                    'pulsestorePassword' => $request->pulsestorepassword,
                     'upgradeNotes' => $request->upgradeNotes,
                     'networkDetails' => $request->network,
                     'licenceEnd' => $request->expiry,
@@ -50,7 +71,7 @@ class customerController extends Controller
                     'spicPass' => $request->spicpass,
                     'antAcc' => $request->antacc,
                     'antPass' => $request->antpass,
-                    'truacc' => $request->trupacc,
+                    'truacc' => $request->truacc,
                     'truPass' => $request->trupass,
                     'betaAcc' => $request->betaacc,
                     'betaPass' => $request->betapass,
@@ -70,52 +91,65 @@ class customerController extends Controller
                     ],
                     '1' => 
                     [
-                        'conFirstName1' => $request->conFirstName,
-                        'conLastName1' => $request->conLastName,
-                        'conEmail1' => $request->conEmail,
-                        'conPhone1' => $request->conPhoneNumber,
-                        'conMain1' => $request->conMain,
-                        'conRole1' => $request->conRoleChoice,
+                        'conFirstName1' => $request->conFirstName1,
+                        'conLastName1' => $request->conLastName1,
+                        'conEmail1' => $request->conEmail1,
+                        'conPhone1' => $request->conPhoneNumber1,
+                        'conMain1' => $request->conMain1,
+                        'conRole1' => $request->conRoleChoice1,
                     ],
                     '2' => 
                     [
-                        'conFirstName2' => $request->conFirstName,
-                        'conLastName2' => $request->conLastName,
-                        'conEmail2' => $request->conEmail,
-                        'conPhone2' => $request->conPhoneNumber,
-                        'conMain2' => $request->conMain,
-                        'conRole2' => $request->conRoleChoice,
+                        'conFirstName2' => $request->conFirstName2,
+                        'conLastName2' => $request->conLastName2,
+                        'conEmail2' => $request->conEmail2,
+                        'conPhone2' => $request->conPhoneNumber2,
+                        'conMain2' => $request->conMain2,
+                        'conRole2' => $request->conRoleChoice2,
                     ],
                     '3' => 
                     [
-                        'conFirstName3' => $request->conFirstName,
-                        'conLastName3' => $request->conLastName,
-                        'conEmail3' => $request->conEmail,
-                        'conPhone3' => $request->conPhoneNumber,
-                        'conMain3' => $request->conMain,
-                        'conRole3' => $request->conRoleChoice,
+                        'conFirstName3' => $request->conFirstName3,
+                        'conLastName3' => $request->conLastName3,
+                        'conEmail3' => $request->conEmail3,
+                        'conPhone3' => $request->conPhoneNumber3,
+                        'conMain3' => $request->conMain3,
+                        'conRole3' => $request->conRoleChoice3,
                     ],
                     '4' => 
                     [
-                        'conFirstName4' => $request->conFirstName,
-                        'conLastName4' => $request->conLastName,
-                        'conEmail4' => $request->conEmail,
-                        'conPhone4' => $request->conPhoneNumber,
-                        'conMain4' => $request->conMain,
-                        'conRole4' => $request->conRoleChoice,
+                        'conFirstName4' => $request->conFirstName4,
+                        'conLastName4' => $request->conLastName4,
+                        'conEmail4' => $request->conEmail4,
+                        'conPhone4' => $request->conPhoneNumber4,
+                        'conMain4' => $request->conMain4,
+                        'conRole4' => $request->conRoleChoice4,
                     ],
                     '5' => 
                     [
-                        'conFirstName5' => $request->conFirstName,
-                        'conLastName5' => $request->conLastName,
-                        'conEmail5' => $request->conEmail,
-                        'conPhone5' => $request->conPhoneNumber,
-                        'conMain5' => $request->conMain,
-                        'conRole5' => $request->conRoleChoice,
+                        'conFirstName5' => $request->conFirstName5,
+                        'conLastName5' => $request->conLastName5,
+                        'conEmail5' => $request->conEmail5,
+                        'conPhone5' => $request->conPhoneNumber5,
+                        'conMain5' => $request->conMain5,
+                        'conRole5' => $request->conRoleChoice5,
                     ]
                 ];
+                
                 $customer = new customerModel();
                 $result = $customer->addSingleCustomer($newCustomerArray, $contactArray);
+                //dd($result);
+                if(in_array(false, $result))
+                {
+                    $resultMessage = "<div class='alert alert-danger' style='text-align:center'>Customer Creatin failed. Please contact a system administrator</div>";
+                }
+                else
+                {
+                    $resultMessage = "<div class='alert alert-success' style='text-align:center'>Customer " . $newCustomerArray['companyName'] . " successfully created.</div>";
+                }
+                $allCustomers = $customer->getAllCustomers();
+                
+                return view('layouts.customermenu', ['result' => $resultMessage], ['customers' => $allCustomers]);
 
         } catch (Exception $ex) {
             //todo log errors
