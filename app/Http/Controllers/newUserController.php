@@ -106,7 +106,7 @@ class newUserController extends Controller
             $userResult = $user->suspendUserAccess($userDetails);
             if(true == $userResult)
             {
-                $ammendedMessage = "<div class='alert alert-success' style='text-align:center'>User account suspended</div>";
+                $ammendedMessage = "<div class='alert alert-success' style='text-align:center'>User account " . $userDetails['name'] . " suspended</div>";
             }
             else
             {
@@ -134,7 +134,7 @@ class newUserController extends Controller
             $userResult = $user->activateUserAccess($userDetails);
             if(true == $userResult)
             {
-                $ammendedMessage = "<div class='alert alert-success' style='text-align:center'>User account activated</div>";
+                $ammendedMessage = "<div class='alert alert-success' style='text-align:center'>User account " . $userDetails['name'] . " activated</div>";
             }
             else
             {

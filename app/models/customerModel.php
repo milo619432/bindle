@@ -24,6 +24,7 @@ class customerModel extends Model
                                     contacts.SurName,
                                     systemdata.hosted,
                                     systemdata.PulseStore,
+                                    customers.StockControl, 
                                     customers.OnHold 
                                     FROM customers 
                                     INNER JOIN contacts 

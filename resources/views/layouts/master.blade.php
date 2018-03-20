@@ -55,7 +55,7 @@
                     <div class="uk-overlay uk-position-center">
                     <h2>Now look what you have done..........</h2><br>
                     <h3>Make sure you have logged in and use the links provided to navigate.</h3>
-                    <h4>I wont tell you again. <a href="bindle/public/">Click here to do it properly</a><h4>
+                    <h4>I wont tell you again. <a href="/">Click here to do it properly</a><h4>
                     <button><button>
                     </div>
                     </div>');

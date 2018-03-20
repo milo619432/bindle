@@ -141,7 +141,7 @@ class customerController extends Controller
                 //dd($result);
                 if(in_array(false, $result))
                 {
-                    $resultMessage = "<div class='alert alert-danger' style='text-align:center'>Customer Creatin failed. Please contact a system administrator</div>";
+                    $resultMessage = "<div class='alert alert-danger' style='text-align:center'>Customer Creation failed. Please contact a system administrator</div>";
                 }
                 else
                 {
