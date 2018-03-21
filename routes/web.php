@@ -73,6 +73,8 @@ Route::post('/editUser', 'newUserController@editUser');
 
 Route::post('/login', 'loginController@logUserIn');
 
+Route::post('/uploadCustomers', 'customerController@importCustomers');
+
 Route::get('/logout', 'loginController@logOut');
 
 Route::get('/deleteUser', 'newUserController@deleteUser');

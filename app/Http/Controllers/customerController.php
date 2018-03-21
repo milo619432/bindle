@@ -155,4 +155,31 @@ class customerController extends Controller
             //todo log errors
         }
     }
+    
+    public function importCustomers()
+    {
+        try
+        {            
+            $count = 0;
+            $results = [
+                'message' => null,
+                'recordsAdded' => null
+            ];
+            $newCustomers = [];
+            $systemData = [];
+            
+            if(is_uploaded_file($_FILES['file']['tmp_name']) && $_FILES['file']['size'] > 0)
+            {
+                //http://www.oodlestechnologies.com/blogs/Converting-CSV-file-into-an-Array-in-PHP
+                
+            }            
+            else 
+            {
+                $results['message'] = "<div class='alert alert-danger'>File upload failed. Please select a valid file and ensure it is not empty</div>";
+            }
+            
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
 }

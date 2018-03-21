@@ -4,9 +4,13 @@
 <button type="button" class="btn btn-secondary" uk-toggle="target: #createCustomer">Create Customer Account</button>
 <button type="button" class="btn btn-secondary">Delete Selected Accounts</button>
 <button type="button" class="btn btn-secondary">Suspend Selected Accounts</button>
-<input type="file" name="file" id="file" class="inputfile" hidden="true"/>
-<label for="file" class="btn btn-secondary" style="float:right;">Choose a Customer import file</label>
 <hr>
+<br>
+<form action="{{action('customerController@importCustomers')}}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+<input type="file" id="file" name="file" hidden="true" accept=".csv" onchange='form.submit()'/>
+<label for="file" class="btn btn-secondary" >Choose a Customer import file</label>
+</form>
 @if(isset ($result))
 {!! $result !!}
 @endif
