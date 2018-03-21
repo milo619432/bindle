@@ -11,6 +11,56 @@ use Illuminate\Pagination\Paginator;
 class customerModel extends Model
 {
     
+    public function ImportCSV2Array($filename)
+    {
+        $row = 0;
+        $col = 0;
+
+        $handle = @fopen($filename, "r");
+        if ($handle) 
+        {
+            while (($row = fgetcsv($handle, 4096)) !== false) 
+            {
+                if (empty($fields)) 
+                {
+                    $fields = $row;
+                    continue;
+                }
+
+                foreach ($row as $k=>$value) 
+                {
+                    $results[$col][$fields[$k]] = $value;
+                }
+                $col++;
+                unset($row);
+            }
+            if (!feof($handle)) 
+            {
+                echo "Error: unexpected fgets() failn";
+            }
+            fclose($handle);
+        }
+
+        return $results;
+    }
+    
+    public function importCustomers($customerArray)
+    {
+        try
+        {
+            if($customerArray && sizeof($customerArray) > 0)
+            {
+//                dd($customerArray['127']);
+                foreach ($customerArray as $key => $value)
+                {
+                    //var_dump($key . " : " . $value['CustName']);
+                }
+            }
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
+    
     public function getAllCustomers()
     {
         try

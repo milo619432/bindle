@@ -7,7 +7,7 @@ use App\models\customerModel;
 
 class customerController extends Controller
 {
-    
+        
     public function getCustomers()
     {
         try
@@ -167,11 +167,14 @@ class customerController extends Controller
             ];
             $newCustomers = [];
             $systemData = [];
+            $fileName = $_FILES['file']['tmp_name'];
             
-            if(is_uploaded_file($_FILES['file']['tmp_name']) && $_FILES['file']['size'] > 0)
+            if(is_uploaded_file($fileName) && $_FILES['file']['size'] > 0)
             {
-                //http://www.oodlestechnologies.com/blogs/Converting-CSV-file-into-an-Array-in-PHP
-                
+                $customer = new customerModel();
+                $csvArray = $customer->ImportCSV2Array($fileName);
+                $importResult = $customer->importCustomers($csvArray);
+                                
             }            
             else 
             {
