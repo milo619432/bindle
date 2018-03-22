@@ -50,11 +50,190 @@ class customerModel extends Model
         {
             if($customerArray && sizeof($customerArray) > 0)
             {
-//                dd($customerArray['127']);
+                
                 foreach ($customerArray as $key => $value)
+                {   
+                    //dd($value);
+                    $newCustIDS = [];
+                    //hacky manipulation for crap input data -- mostly Andys data
+                    if(true == $value['PulseStore'])
+                    {
+                        $value['PulseStore'] = 1;
+                    }
+                    else 
+                    {
+                        $value['PulseStore'] = 0;
+                    }
+                    
+                    if(!empty($value['Date Licence Expires']))
+                    {
+                        $value['Date Licence Expires'] =implode("-", array_reverse(explode("/", $value['Date Licence Expires'])));
+                    }
+                    else 
+                    {
+                        $value['Date Licence Expires'] = null;
+                    }
+                    
+                    if(!empty($value['Date paid up until PO']))
+                    {
+                        $value['Date paid up until PO'] =implode("-", array_reverse(explode("/", $value['Date paid up until PO'])));                    
+                    }
+                    else 
+                    {
+                        $value['Date paid up until PO'] = null;
+                    }
+                    
+                    if(false == $value['Stock Control?'])
+                    {
+                        $value['Stock Control?'] = 0;
+                    } 
+                    else
+                    {
+                        $value['Stock Control?'] = 1;
+                    }
+                    
+                    if(!empty($value['Generate licece to']))
+                    {
+                        $value['Generate licece to'] =implode("-", array_reverse(explode("/", $value['Generate licece to'])));
+                    }
+                    else
+                    {
+                        $value['Generate licece to'] = null;
+                    }
+                    
+                    if(!empty($value['Install Date']))
+                    {
+                        $value['Install Date'] =implode("-", array_reverse(explode("/", $value['Install Date'])));
+                    }
+                    else
+                    {
+                        $value['Install Date'] = null;
+                    }                    
+                    
+                    //-----------------------------------------------------------------------------------------------------------
+                    //do customer table insert first
+                    $insertResult = DB::insert(
+                            "INSERT INTO customers ("
+                            . "CustCode, "
+                            . "CustName, "
+                            . "Street1, "
+                            . "Street2, "
+                            . "Town, "
+                            . "County, "
+                            . "Postcode, "
+                            . "MainPhone, "
+                            . "Fax, "
+                            . "MainEmail, "
+                            . "LicenceExpiry, "
+                            . "DatePaidTo, "
+                            . "OnHold, "
+                            . "Comments, "
+                            . "StockControl, "
+                            . "LicenceToDate, "
+                            . "LicenceNotes, "
+                            . "SpecialUpgradeNotes, "                            
+                            . "InstallDate) "
+                            . "values "
+                            . "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",                            
+                            [
+                                $value['CustCode'], 
+                                $value['CustName'],
+                                $value['CustStreet1'],
+                                $value['CustStreet2'], 
+                                $value['CustTown'],
+                                $value['CustCounty'],
+                                $value['CustPostCode'],
+                                $value['CustMainPhone'],
+                                $value['CustFax'],
+                                $value['Main email address'],
+                                $value['Date Licence Expires'],
+                                $value['Date paid up until PO'],
+                                $value['onHold'],
+                                $value['Comments'],
+                                $value['Stock Control?'],
+                                $value['Generate licece to'],
+                                $value['Licence notes'],
+                                $value['More notes'],                                
+                                $value['Install Date']
+                            ]);       
+                //if customer insert successfull do system data insert
+                if(true == $insertResult)
                 {
-                    //var_dump($key . " : " . $value['CustName']);
+                    $custID = DB::getPdo()->lastInsertId();
+                    $systemInsertResult = DB::insert("INSERT INTO systemdata ("
+                            . "custID, "
+                            . "PulseVersion, "
+                            . "OPXMLPC, "
+                            . "SageLinkPC, "
+                            . "PulseLinkPC, "
+                            . "TerminalServer, "
+                            . "VowAccNo, "
+                            . "VowPassword, "
+                            . "VowDiscount, "
+                            . "SpicerAccNo, "
+                            . "SpicerPassword, "
+                            . "AntalisAccNo, "
+                            . "AntalisPassword, "
+                            . "TrulineAccNo, "
+                            . "TrulinePassword, "
+                            . "BetaAccNo, "
+                            . "BetaPassword, "
+                            . "ExertisAccNo, "
+                            . "ExertisPassword, "
+                            . "SageVersion, "
+                            . "NetworkDetails, "
+                            . "PulseStore, "
+                            . "PulseStoreShopNumber, "
+                            . "buyingGroup, "
+                            . "PulseStorePassword, "
+                            . "hosted) "
+                            . "values "
+                            . "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                            [
+                                $custID,
+                                $value['pulseVersion'],
+                                $value['Opxml Link Machine'],
+                                $value['Sage Link Machine'],
+                                $value['PulseLink Machine'],
+                                $value['TerminalServer'], 
+                                $value['VOW Account No'],
+                                $value['VOW OPXML Password'],
+                                $value['VOW Discount'],
+                                $value['Spicers account No'],
+                                $value['Spicers OPXML Password'],
+                                $value['Antalis Account No'],
+                                $value['Antalis OPXML Password'],
+                                $value['Truline User name'],
+                                $value['Truline Password'],
+                                $value['Beta Account no'],
+                                $value['Beta opxml password'],
+                                $value['Exertis username'],
+                                $value['Exertis Password'],
+                                $value['Sage Version'],
+                                $value['Network or password info'],
+                                $value['PulseStore'],
+                                $value['pulsestore Shopnumber'],
+                                $value['buyingGroup'],
+                                $value['Pulsestore password'],
+                                $value['hosted']
+                            ]);
+                    if(true == $systemInsertResult)
+                    {
+                        //do the contact inserts
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                } 
+                else 
+                {
+                    return false;
                 }
+
+                }
+
+                
             }
         } catch (Exception $ex) {
             //todo log errors
@@ -81,8 +260,7 @@ class customerModel extends Model
                                     ON customers.CustID=contacts.CustID 
                                     INNER JOIN systemdata 
                                     ON customers.CustID=systemdata.CustID 
-                                    WHERE contacts.MainPulseContact = 1;");          
-            
+                                    WHERE contacts.MainPulseContact = 1;");            
             return $customers;
         } catch (Exception $ex) {
             //todo logerrors

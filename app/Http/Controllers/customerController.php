@@ -159,8 +159,7 @@ class customerController extends Controller
     public function importCustomers()
     {
         try
-        {            
-            $count = 0;
+        {                        
             $results = [
                 'message' => null,
                 'recordsAdded' => null
