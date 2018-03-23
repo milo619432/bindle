@@ -219,7 +219,7 @@ class customerModel extends Model
                             ]);
                     if(true == $systemInsertResult)
                     {
-                        //do the contact inserts
+                        return true;
                     }
                     else
                     {
@@ -248,19 +248,16 @@ class customerModel extends Model
                                     customers.CustCode,
                                     customers.CustName, 
                                     customers.MainPhone, 
-                                    customers.MainEmail,
-                                    contacts.FirstName,
-                                    contacts.SurName,
+                                    customers.MainEmail,                                    
                                     systemdata.hosted,
                                     systemdata.PulseStore,
                                     customers.StockControl, 
-                                    customers.OnHold 
-                                    FROM customers 
-                                    INNER JOIN contacts 
-                                    ON customers.CustID=contacts.CustID 
+                                    customers.OnHold,
+                                    customers.DatePaidTo 
+                                    FROM customers                                     
                                     INNER JOIN systemdata 
                                     ON customers.CustID=systemdata.CustID 
-                                    WHERE contacts.MainPulseContact = 1;");            
+                                    ORDER BY CustCode Asc;");            
             return $customers;
         } catch (Exception $ex) {
             //todo logerrors

@@ -8,7 +8,7 @@ use App\models\customerModel;
 class customerController extends Controller
 {
         
-    public function getCustomers()
+    public function getCustomers(Request $request)
     {
         try
         {
@@ -173,6 +173,17 @@ class customerController extends Controller
                 $customer = new customerModel();
                 $csvArray = $customer->ImportCSV2Array($fileName);
                 $importResult = $customer->importCustomers($csvArray);
+                $allCustomers = $customer->getAllCustomers();
+                if($importResult && true == $importResult)
+                {
+                    $results['message'] = "<div class='alert alert-success'>File upload Completed. Please Upload customer contacts now.</div>";
+                    return view('layouts.custoermenu', ['result' => $results['message']], ['customers' => $allCustomers]);
+                }
+                else
+                {
+                    $results['message'] = "<div class='alert alert-danger'>File upload Failed. Please contact an admin.</div>";
+                    return view('layouts.custoermenu', ['result' => $results['message']], ['customers' => $allCustomers]);
+                }
                                 
             }            
             else 

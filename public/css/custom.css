@@ -12,3 +12,14 @@
     text-align: center;
  }
  
+ html, body 
+ {
+     height: 100vh;
+     background-color: #faebd7;   
+ }
+
+ #custTableDiv
+ {
+     display: none;
+ }
+ 

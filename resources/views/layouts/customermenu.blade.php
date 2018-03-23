@@ -16,19 +16,20 @@
 @endif
 @if(isset($customers))
 
-<table class="table table-striped table-hover">
+<div id="custTableDiv">
+    <table class="table table-striped table-hover" id="custTable">
     <thead>
         <tr>
             <th></th>
             <th scope="col">Code</th>
             <th scope="col">Company Name</th>
             <th scope="col">Main Phone</th>
-            <th scope="col">Main Email</th>
-            <th scope="col">Main Contact</th>
+            <th scope="col">Main Email</th>            
             <th scope="col">Hosted Pulse</th>
             <th scope="col">PulseStore</th>
-            <th scope="col">On Hold</th>
             <th scope="col">Stock</th>
+            <th scope="col">Date Paid Until</th>
+            <th scope="col">On Hold</th>            
         </tr>
     </thead>
     <tbody>
@@ -42,28 +43,28 @@
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->CustCode}}</th>
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->CustName}}</th>
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->MainPhone}}</th>
-            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->MainEmail}}</th>
-            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->FirstName}} {{$detail->SurName}}</th>
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->MainEmail}}</th>            
             @if($detail->hosted === 1)
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Yes</th>
             @else
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >No</th>
             @endif
-            @if($detail->PulseStore === 1)
+            @if($detail->PulseStore === 0)
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Yes</th>
             @else
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >No</th>
-            @endif            
-            @if($detail->OnHold === 1)
-            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >On Hold</th>
-            @else
-            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Not On Hold</th>
-            @endif
-            @if($detail->StockControl === 1)
+            @endif   
+             @if($detail->StockControl === 0)
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}">Yes</th>
             @else
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}">No</th>
             @endif
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->DatePaidTo}}</th>
+            @if($detail->OnHold === 1)
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >On Hold</th>
+            @else
+            <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Not On Hold</th>
+            @endif           
         </tr>
         <!--Edit customer-->
 <div id="modal-close-outside" uk-modal>
@@ -453,6 +454,8 @@
     </tbody>
     
 </table>
+</div>
+
 @else
 <div class="alert alert-danger">
     <h3>You currently have no customer accounts</h3>

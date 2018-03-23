@@ -3,7 +3,15 @@ $(document).ready( function () {
     $('#maintables').DataTable();
 });
 
+//customer table awesomeness
+$(document).ready( function () {
+    $('#custTable').DataTable();
+} );
 
+$(document).ready(function(){
+   $('#custTableDiv').show();
+});
+//check required fields are filled in
 function validate(){  
     var allInputs = $(":input");
     var list = "<ul>"
@@ -27,6 +35,7 @@ function validate(){
     };
 };
 
+//add extra contact fields to create customr form
 function moreContactFields(){
     if(count < 5)
     {
