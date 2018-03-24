@@ -15,6 +15,11 @@
         <!--bootstrap links -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="<?php echo e(asset('css/custom.css')); ?>" media="all" rel="stylesheet" type="text/css" />
+        
+        <!--Datatables jquery plugin-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">  
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
 
         
         <script src="<?php echo e(URL::asset('js/custom.js')); ?>" type="text/javascript"></script>
@@ -27,7 +32,7 @@
         <!-- UIkit JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.28/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.28/js/uikit-icons.min.js"></script>
-        <body style="background-color: #FAEBD7; height: 100%">
+        <body>
         <?php
             $userLoggedIn = Session::get('loggedIn');     
             $name = session::get('name');

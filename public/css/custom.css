@@ -18,8 +18,7 @@
      background-color: #faebd7;   
  }
 
- #custTableDiv
+ #loader
  {
-     display: none;
+     text-align: center;
  }
- 

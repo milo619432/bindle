@@ -23,9 +23,14 @@ Route::get('/dash', function () {
     return view('layouts.main');
 })->name('layouts.main');
 
+//ajax route to get customers
+Route::get('/customers/allCustomers', 'customerController@getCustomers');
+
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
-Route::get('/customers', 'customerController@getCustomers')->name('layouts.customermenu');
+Route::get('/customers' ,function(){
+ return view('layouts.customermenu')   ;
+})->name('layouts.customermenu');
 
 Route::get('/issues', function() {
    return view ('layouts.issues');

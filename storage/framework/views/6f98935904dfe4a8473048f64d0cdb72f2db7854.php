@@ -14,21 +14,29 @@
 <?php echo $result; ?>
 
 <?php endif; ?>
+<div id="custTableDiv">
+    
+</div>
 <?php if(isset($customers)): ?>
+<div id="loader">
+    <h3>Fetching Customer Data</h3>
+    <img src="../images/ajax-loader.gif">
+</div>
 
-<table class="table table-striped table-hover">
+
+<!--    <table class="table table-striped table-hover" id="custTable">
     <thead>
         <tr>
             <th></th>
             <th scope="col">Code</th>
             <th scope="col">Company Name</th>
             <th scope="col">Main Phone</th>
-            <th scope="col">Main Email</th>
-            <th scope="col">Main Contact</th>
+            <th scope="col">Main Email</th>            
             <th scope="col">Hosted Pulse</th>
             <th scope="col">PulseStore</th>
-            <th scope="col">On Hold</th>
             <th scope="col">Stock</th>
+            <th scope="col">Date Paid Until</th>
+            <th scope="col">On Hold</th>            
         </tr>
     </thead>
     <tbody>
@@ -38,34 +46,34 @@
         <?php else: ?>
         <tr id="custRow">
         <?php endif; ?>
-            <th><input type="checkbox"><th
+        <th><input type="checkbox"><th>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->CustCode); ?></th>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->CustName); ?></th>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->MainPhone); ?></th>
-            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->MainEmail); ?></th>
-            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->FirstName); ?> <?php echo e($detail->SurName); ?></th>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->MainEmail); ?></th>            
             <?php if($detail->hosted === 1): ?>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Yes</th>
             <?php else: ?>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >No</th>
             <?php endif; ?>
-            <?php if($detail->PulseStore === 1): ?>
+            <?php if($detail->PulseStore === 0): ?>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Yes</th>
             <?php else: ?>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >No</th>
-            <?php endif; ?>            
-            <?php if($detail->OnHold === 1): ?>
-            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >On Hold</th>
-            <?php else: ?>
-            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Not On Hold</th>
-            <?php endif; ?>
-            <?php if($detail->StockControl === 1): ?>
+            <?php endif; ?>   
+             <?php if($detail->StockControl === 0): ?>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>">Yes</th>
             <?php else: ?>
             <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>">No</th>
             <?php endif; ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" ><?php echo e($detail->DatePaidTo); ?></th>
+            <?php if($detail->OnHold === 1): ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >On Hold</th>
+            <?php else: ?>
+            <th uk-toggle="target: #editCustModal-<?php echo e($detail->custID); ?>" >Not On Hold</th>
+            <?php endif; ?>           
         </tr>
-        <!--Edit customer-->
+        Edit customer
 <div id="modal-close-outside" uk-modal>
     <div id="editCustModal-<?php echo e($detail->custID); ?>" uk-modal class="uk-modal-container">
         <div class="uk-modal-dialog uk-modal-body">
@@ -452,7 +460,9 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>
     
-</table>
+</table>-->
+</div>
+
 <?php else: ?>
 <div class="alert alert-danger">
     <h3>You currently have no customer accounts</h3>

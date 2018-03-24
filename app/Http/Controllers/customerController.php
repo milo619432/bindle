@@ -17,11 +17,12 @@ class customerController extends Controller
             
             if(sizeof($allCustomers) > 0)
             {
-                return view('layouts.customermenu', ['customers' => $allCustomers]);
+                $customerJSON = json_encode($allCustomers);
+                echo $customerJSON;                
             }
             else
             {
-                return view('layouts.customermenu');
+                //return view('layouts.customermenu');
             }
         } catch (Exception $ex) {
             //todo log errors

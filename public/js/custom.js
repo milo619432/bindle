@@ -8,9 +8,78 @@ $(document).ready( function () {
     $('#custTable').DataTable();
 } );
 
+//$(document).ready(function(){
+//    $('#loader').hide();
+//   $('#custTableDiv').show();   
+//});
+
+//populate customer table in customers module
 $(document).ready(function(){
-   $('#custTableDiv').show();
+   if(window.location.href.indexOf("customers") > -1){           
+       $.getJSON("/customers/allCustomers",
+        function(data){
+            if(data.length > 0 && typeof(data) != 'undefined'){
+                var table = "<div id='custTableDiv'>\n\
+                <table class='table table-striped table-hover' id='custTable'>\n\
+                <thead><tr><th></th>\n\
+                <th scope='col'>Code</th>\n\
+                <th scope='col'>Company Name</th>\n\
+                <th scope='col'>Main Phone</th>\n\
+                <th scope='col'>Main Email</th>\n\
+                <th scope='col'>Hosted Pulse</th>\n\
+                <th scope='col'>PulseStore</th>\n\
+                <th scope='col'>Stock</th>\n\
+                <th scope='col'>Date Paid Until</th>\n\
+                <th scope='col'>On Hold</th>\n\
+                </tr>\n\
+                </thead>\n\
+                <tbody>";
+                console.log(data);
+                $(data).each(function(key, item){
+                console.log(item.OnHold);
+                if(item.OnHold == 1){
+                    table += "<tr  style='background-color:#d9534f' id='custRow'>";
+                } else {
+                    table += "<tr id='custRow'";
+                }
+                table += "<th><input type='checkbox'><th>";
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.CustCode +"</th>";
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.CustName +"</th>";
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.MainPhone +"</th>";
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.MainEmail +"</th>";
+                if(item.hosted == 1){
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";                
+                } else {
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";    
+                }
+                if(item.PulseStore == 1){
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";
+                } else {
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";
+                }
+                if(item.StockControl == 1){
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";
+                } else {
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";
+                }
+                if(item.OnHold == 1){
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";
+                } else {
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";
+                }
+                table += "</tr>";
+                });
+                table += "</tbody>";
+                table += "</table>";                
+                //document.getElementById('custTableDiv').innerHTML = table;
+                document.getElementById('custTableDiv').innerHtml = table;
+           }
+           
+       });
+   } 
 });
+
+
 //check required fields are filled in
 function validate(){  
     var allInputs = $(":input");

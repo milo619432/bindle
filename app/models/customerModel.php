@@ -56,7 +56,7 @@ class customerModel extends Model
                     //dd($value);
                     $newCustIDS = [];
                     //hacky manipulation for crap input data -- mostly Andys data
-                    if(true == $value['PulseStore'])
+                    if(TRUE == $value['PulseStore'])
                     {
                         $value['PulseStore'] = 1;
                     }
@@ -83,7 +83,7 @@ class customerModel extends Model
                         $value['Date paid up until PO'] = null;
                     }
                     
-                    if(false == $value['Stock Control?'])
+                    if(FALSE == $value['Stock Control?'])
                     {
                         $value['Stock Control?'] = 0;
                     } 

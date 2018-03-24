@@ -14,10 +14,17 @@
 @if(isset ($result))
 {!! $result !!}
 @endif
-@if(isset($customers))
-
 <div id="custTableDiv">
-    <table class="table table-striped table-hover" id="custTable">
+    
+</div>
+@if(isset($customers))
+<div id="loader">
+    <h3>Fetching Customer Data</h3>
+    <img src="../images/ajax-loader.gif">
+</div>
+
+
+<!--    <table class="table table-striped table-hover" id="custTable">
     <thead>
         <tr>
             <th></th>
@@ -39,7 +46,7 @@
         @else
         <tr id="custRow">
         @endif
-            <th><input type="checkbox"><th
+        <th><input type="checkbox"><th>
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->CustCode}}</th>
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->CustName}}</th>
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >{{$detail->MainPhone}}</th>
@@ -66,7 +73,7 @@
             <th uk-toggle="target: #editCustModal-{{$detail->custID}}" >Not On Hold</th>
             @endif           
         </tr>
-        <!--Edit customer-->
+        Edit customer
 <div id="modal-close-outside" uk-modal>
     <div id="editCustModal-{{$detail->custID}}" uk-modal class="uk-modal-container">
         <div class="uk-modal-dialog uk-modal-body">
@@ -453,7 +460,7 @@
         @endforeach
     </tbody>
     
-</table>
+</table>-->
 </div>
 
 @else
