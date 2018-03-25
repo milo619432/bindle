@@ -196,4 +196,17 @@ class customerController extends Controller
             //todo log errors
         }
     }
+    
+    public function getSingleCustomer(){
+        try
+        {
+            $id = $_GET['queryString'];            
+            $customer = new customerModel();
+            $customerResult = $customer->getSingleCustomer($id);
+            $result = json_encode($customerResult);
+            echo $result;
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
 }

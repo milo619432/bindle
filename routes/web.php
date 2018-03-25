@@ -26,6 +26,9 @@ Route::get('/dash', function () {
 //ajax route to get customers
 Route::get('/customers/allCustomers', 'customerController@getCustomers');
 
+//ajax route for single customer, to populate edit customer modal
+Route::get('/customers/singleCustomer', 'customerController@getSingleCustomer');
+
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
 Route::get('/customers' ,function(){

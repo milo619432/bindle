@@ -3,8 +3,12 @@ $(document).ready( function () {
     $('#maintables').DataTable();
 });
 
-//populate customer table in customers module
 $(document).ready(function(){
+  getCust();  
+})
+
+//populate customer table in customers module
+function getCust(){
    if(window.location.href.indexOf("customers") > -1){  
        $('#loader').show();
        $.getJSON("/customers/allCustomers",
@@ -25,12 +29,12 @@ $(document).ready(function(){
                 </tr>\n\
                 </thead>\n\
                 <tbody>";                
-                $(data).each(function(key, item){     
-                    console.log(item.custID);
+                $(data).each(function(key, item){                         
+                var id = item.custID;
                 if(item.OnHold == 1){
-                    table += "<tr  style='background-color:#d9534f' id='custRow'>";
+                    table += "<tr  style='background-color:#d9534f' id='custRow' onclick='editCust(" + id + ")'>";
                 } else {
-                    table += "<tr id='custRow'>";
+                    table += "<tr id='custRow' onclick='editCust(" + id + ")'>";
                 }
                 table += "<th><input type='checkbox'></th>";
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.CustCode +"</th>";
@@ -64,6 +68,9 @@ $(document).ready(function(){
                         <div id='editCustModal-" + item.custID +"' uk-modal class='uk-modal-container'>\n\
                         <div class='uk-modal-dialog uk-modal-body'>\n\
                         <h4 style='text-align:centre'>Editing account: " + item.CustName +"</h4>\n\
+                        \n\<div class='alert alert-danger' id='requiredFields' hidden>\n\
+                        \n\<p>The following fields are required before the account can be created.</p>\n\
+                        \n\</div>\n\
                         </div>\n\
                         </div>\n\
                         </div>";
@@ -77,8 +84,23 @@ $(document).ready(function(){
            
        });
    } 
-});
+};
 
+//get single customer to populate edit cust modal. (customerController.php/getSingleCustomer()).
+function editCust(id){  
+    $.getJSON("customers/singleCustomer",{
+        queryString: id
+    }, 
+        function(data){
+        if(data.length > 0 && typeof(data) != 'undefined'){
+            $(data).each(function(key, item){
+            
+            });
+        } else {
+           //made a fucky boingo  
+        };
+    });    
+};
 
 //check required fields are filled in
 function validate(){  

@@ -264,6 +264,24 @@ class customerModel extends Model
         }
     }
     
+    public function getSingleCustomer($id)
+    {
+        try
+        {
+            if($id && $id > 0){
+                $customer = DB::select("SELECT * FROM customers WHERE custID =" . $id . ";");
+                return($customer);
+            }
+            else 
+            {
+                return "No customer details found";
+            }
+            
+        } catch (Exception $ex) {
+
+        }
+    }
+    
     public function addSingleCustomer($details, $contacts)
     {
         try
