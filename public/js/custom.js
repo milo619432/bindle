@@ -3,22 +3,13 @@ $(document).ready( function () {
     $('#maintables').DataTable();
 });
 
-//customer table awesomeness
-$(document).ready( function () {
-    $('#custTable').DataTable();
-} );
-
-//$(document).ready(function(){
-//    $('#loader').hide();
-//   $('#custTableDiv').show();   
-//});
-
 //populate customer table in customers module
 $(document).ready(function(){
-   if(window.location.href.indexOf("customers") > -1){           
+   if(window.location.href.indexOf("customers") > -1){  
+       $('#loader').show();
        $.getJSON("/customers/allCustomers",
         function(data){
-            if(data.length > 0 && typeof(data) != 'undefined'){
+            if(data.length > 0 && typeof(data) != 'undefined'){                
                 var table = "<div id='custTableDiv'>\n\
                 <table class='table table-striped table-hover' id='custTable'>\n\
                 <thead><tr><th></th>\n\
@@ -33,16 +24,15 @@ $(document).ready(function(){
                 <th scope='col'>On Hold</th>\n\
                 </tr>\n\
                 </thead>\n\
-                <tbody>";
-                console.log(data);
-                $(data).each(function(key, item){
-                console.log(item.OnHold);
+                <tbody>";                
+                $(data).each(function(key, item){     
+                    console.log(item.custID);
                 if(item.OnHold == 1){
                     table += "<tr  style='background-color:#d9534f' id='custRow'>";
                 } else {
-                    table += "<tr id='custRow'";
+                    table += "<tr id='custRow'>";
                 }
-                table += "<th><input type='checkbox'><th>";
+                table += "<th><input type='checkbox'></th>";
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.CustCode +"</th>";
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.CustName +"</th>";
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.MainPhone +"</th>";
@@ -58,21 +48,31 @@ $(document).ready(function(){
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";
                 }
                 if(item.StockControl == 1){
-                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";
-                } else {
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";
+                } else {
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";
                 }
+                table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >" + item.DatePaidTo +"</th>";
                 if(item.OnHold == 1){
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >Yes</th>";
                 } else {
                 table += "<th uk-toggle='target: #editCustModal-" + item.custID +"' >No</th>";
-                }
-                table += "</tr>";
-                });
+                }                
+                
+                table += "</tr>"; 
+                table += "<div id='modal-close-outside' uk-modal>\n\
+                        <div id='editCustModal-" + item.custID +"' uk-modal class='uk-modal-container'>\n\
+                        <div class='uk-modal-dialog uk-modal-body'>\n\
+                        <h4 style='text-align:centre'>Editing account: " + item.CustName +"</h4>\n\
+                        </div>\n\
+                        </div>\n\
+                        </div>";
+                });                
                 table += "</tbody>";
-                table += "</table>";                
-                //document.getElementById('custTableDiv').innerHTML = table;
-                document.getElementById('custTableDiv').innerHtml = table;
+                table += "</table>";                                
+                $('#custTableDiv').html(table);
+                $('#custTable').DataTable();                
+                $('#loader').hide();
            }
            
        });
