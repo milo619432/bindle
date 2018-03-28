@@ -19,7 +19,12 @@
  }
 
  #loader
- {
-     //visibility: hidden;
+ { 
      text-align: center;
  }
+ 
+ #editCustForm {
+     height: 100%;
+     width: 100%;
+ }
+ 
