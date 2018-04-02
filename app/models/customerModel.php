@@ -269,7 +269,7 @@ class customerModel extends Model
         try
         {
             if($id && $id > 0){
-                $customer = DB::select("SELECT * FROM customers, systemdata WHERE customers.custID =" . $id . ";");
+                $customer = DB::select("SELECT * FROM customers, systemdata WHERE customers.custID =" . $id . " AND systemdata.CustID =" . $id . ";");
                 return($customer);
             }
             else 

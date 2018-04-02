@@ -1,8 +1,8 @@
 <?php $__env->startSection('customertable'); ?>
 <div class="container-fluid">
-<button type="button" class="btn btn-secondary" uk-toggle="target: #createCustomer">Create Customer Account</button>
-<button type="button" class="btn btn-secondary">Delete Selected Accounts</button>
-<button type="button" class="btn btn-secondary">Suspend Selected Accounts</button>
+<button type="button" class="btn btn-success" uk-toggle="target: #createCustomer">Create Customer Account</button>
+<button type="button" class="btn btn-danger">Delete Selected Accounts</button>
+<button type="button" class="btn btn-danger">Suspend Selected Accounts</button>
 <hr>
 <br>
 <form action="<?php echo e(action('customerController@importCustomers')); ?>" method="post" enctype="multipart/form-data">

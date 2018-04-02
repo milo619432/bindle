@@ -93,7 +93,7 @@ function editCust(id){
     }, 
         function(data){
         if(data.length > 0 && typeof(data) != 'undefined'){
-            var custForm = "<div class='alert alert-danger' id='requiredFields' hidden>\n\
+            var custForm = "<button class='uk-modal-close' type='button' style='float: right' uk-close></button><br><div class='alert alert-danger' id='requiredFields' hidden>\n\
                             <p>The following fields are required before the account can be created.</p>\n\
                             </div>\n\
                             <form class='uk-grid-small uk-form-horizontal' uk-grid action='{{action('customerController@addSingleCustomer')}}' method='post'>\n\
@@ -109,14 +109,14 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Account Code</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Code' name='code' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].CustCode + "' +  +'' value='" + data[0].CustCode + "' name='code' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Company Name</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Company Name' name='companyName' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].CustName + "' name='companyName' value='" + data[0].CustName + "' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
@@ -124,70 +124,70 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Street 1</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Street 1' name='street1' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].Street1 + "' name='street1'  value='" + data[0].Street1 + "'required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Street 2</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Street 2' name='street2' >\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].Street2 + "' name='street2' value='" + data[0].Street2 + "' >\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Town</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Town' name='town' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].Town + "' name='town' value='" + data[0].Town + "' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>County</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='County' name='county' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].County + "' value='" + data[0].County + "' name='county' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Postcode</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Postcode' name='postcode' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].Postcode + "' value='" + data[0].Postcode + "' name='postcode' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Main Phone</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Main Phone' name='mainphone' required>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].MainPhone + "' value='" + data[0].MainPhone + "' name='mainphone' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Fax</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Fax' name='fax' >\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].Fax + "' value='" + data[0].Fax + "' name='fax' >\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Main Email</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='email' placeholder='Main Email' name='mainemail' required>\n\
+                                <input class='uk-input' type='email' placeholder='" + data[0].MainEmail + "' value='" + data[0].MainEmail + "' name='mainemail' required>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Comments</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <textarea class='uk-textarea' rows='6' placeholder='Comments' name='comments' ></textarea>\n\
+                                <textarea class='uk-textarea' rows='6' placeholder='" + data[0].Comments + "' value='" + data[0].Comments + "' name='comments' ></textarea>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Install Date</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='date' placeholder='date' name='install' >\n\
+                                <input class='uk-input' type='date' placeholder='" + data[0].InstallDate + "' value='" + data[0].InstallDate + "' name='install' >\n\
                             </div>\n\
                         </div>\n\
                     </li>\n\
@@ -202,14 +202,14 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Stock?</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-checkbox' type='checkbox' name='stock' >\n\
+                                <input class='uk-checkbox' type='checkbox' name='stock'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>PulseStore?</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-checkbox' type='checkbox' name='pulseStore' >\n\
+                                <input class='uk-checkbox' type='checkbox' name='pulseStore'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
@@ -223,28 +223,28 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>PulseOffice Version #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='PulseOffice Version #' name='pulseVersion'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].PulseVersion + "'  value='" + data[0].PulseVersion + "' name='pulseVersion'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>OPXML PC</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='OPXML PC' name='opxmlpc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].OPXMLPC + "' value='" + data[0].OPXMLPC + "' name='opxmlpc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Sage PC</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Sage PC' name='sagepc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].SageLinkPC + "' value='" + data[0].SageLinkPC + "' name='sagepc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>PulseLink PC</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='PulseLink PC' name='pulselinkpc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].PulseLinkPC + "' value='" + data[0].PulseLinkPC + "' name='pulselinkpc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
@@ -472,9 +472,23 @@ function editCust(id){
                 <br>\n\
                 <input type='submit' class='btn btn-primary' value='save' onClick='validate();'>\n\
             </form>\n\ ";
-            console.log('------------------------------');
+            console.log('------------------------------');             
             console.log(data[0]);
-            UIkit.modal.alert("<div id='editCustForm'>Fetching customer id: " + id + " " + data[0].CustName + "<br> " + custForm + "</div>");
+            UIkit.modal.alert("<div id='editCustForm'><h3 style='text-align: center;'>Editing customer : " + data[0].CustName + "</h3><br> " + custForm + "</div>");
+            $('.uk-modal-dialog').css('width','80%');
+            if(data[0].PulseStore == 1){
+                $("input[name='pulseStore']").prop('checked', true);
+            }
+            if(data[0].hosted == 1){
+                $("input[name='hosted']").prop('checked', true);
+            }
+            if(data[0].StockControl == 1){
+                $("input[name='stock']").prop('checked', true);
+            }
+            $('.uk-modal-footer').hide(); 
+            if(data[0].TerminalServer == 1){
+                $("input[name='terminalserver']").prop('checked', true);
+            }
         } else {
            //made a fucky boingo  
         };
