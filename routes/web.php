@@ -26,6 +26,9 @@ Route::get('/dash', function () {
 //ajax route to get customers
 Route::get('/customers/allCustomers', 'customerController@getCustomers');
 
+//ajax route get all suppliers
+Route::get('/suppliers/allSuppliers', 'suppliersController@getSuppliers');
+
 //ajax route for single customer, to populate edit customer modal
 Route::get('/customers/singleCustomer', 'customerController@getSingleCustomer');
 
@@ -38,6 +41,11 @@ Route::get('/customers' ,function(){
 Route::get('/issues', function() {
    return view ('layouts.issues');
 })->name('layouts.issues');
+
+Route::get('/suppliers', function(){
+    return view ('layouts.suppliers');
+})->name('layouts.suppliers');
+    
 
 Route::get('/reports', function(){
    return view ('layouts.reports'); 
@@ -71,7 +79,7 @@ Route::get('/pulsecloud', function(){
    return view ('layouts.pulsecloud');
 })->name('layouts.pulsecloud');
 
-Route::get('wishlist', function(){
+Route::get('/wishlist', function(){
    return view('layouts.wishlist');
 })->name('layouts.wishlist');
 
@@ -90,3 +98,7 @@ Route::get('/deleteUser', 'newUserController@deleteUser');
 Route::get('/activateUser', 'newUserController@activateUser');
 
 Route::post('/addCustomer', 'customerController@addSingleCustomer');
+
+Route::post('/editCustomer', 'customerController@editCustomer');
+
+Route::post('/addSupplier', 'supplierController@addSupplier');

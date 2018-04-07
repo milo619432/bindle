@@ -5,17 +5,39 @@ $(document).ready( function () {
 
 $(document).ready(function(){
   getCust();  
-})
+  getSuppliers();
+});
+
+
+
+//populate wholesalers table
+function getSuppliers(){
+    if(window.location.href.indexOf("suppliers") > -1){
+        $.getJSON("/suppliers/allSuppliers", 
+            function(data){
+                if(data.length > 0 && typeof(data) != "undefined"){
+                    if(data == "No suppliers Found"){
+                        var table = "<div class='alert alert-danger alert-dismissible' style='text-align:center'>No suppliers found</div>";
+                    }
+                    else
+                    {
+                        
+                    }
+                } 
+                $('#suppTableDiv').html(table);
+                $('#loader').hide();
+            });          
+    };
+};
 
 //populate customer table in customers module
 function getCust(){
-   if(window.location.href.indexOf("customers") > -1){  
+   if(window.location.href.indexOf("customers") > -1 || window.location.href.indexOf("editCustomer") > -1 ){  
        $('#loader').show();
        $.getJSON("/customers/allCustomers",
         function(data){
             if(data.length > 0 && typeof(data) != 'undefined'){                
-                var table = "<div id='custTableDiv'>\n\
-                <table class='table table-striped table-hover' id='custTable'>\n\
+                var table = "<table class='table table-striped table-hover' id='custTable'>\n\
                 <thead><tr><th></th>\n\
                 <th scope='col'>Code</th>\n\
                 <th scope='col'>Company Name</th>\n\
@@ -42,7 +64,7 @@ function getCust(){
                 table += "<th>" + item.MainPhone +"</th>";
                 table += "<th>" + item.MainEmail +"</th>";
                 if(item.hosted == 1){
-                table += "<th'>Yes</th>";                
+                table += "<th>Yes</th>";                
                 } else {
                 table += "<th>No</th>";    
                 }
@@ -93,10 +115,11 @@ function editCust(id){
     }, 
         function(data){
         if(data.length > 0 && typeof(data) != 'undefined'){
+            var token = "{{ csrf_token() }}";
             var custForm = "<button class='uk-modal-close' type='button' style='float: right' uk-close></button><br><div class='alert alert-danger' id='requiredFields' hidden>\n\
                             <p>The following fields are required before the account can be created.</p>\n\
                             </div>\n\
-                            <form class='uk-grid-small uk-form-horizontal' uk-grid action='{{action('customerController@addSingleCustomer')}}' method='post'>\n\
+                            <form class='uk-grid-small uk-form-horizontal' method='post' uk-grid action='/editCustomer' >\n\
                             <ul class='uk-subnav uk-subnav-pill' uk-switcher>\n\
                                 <li><a href='#'>Customer Information</a></li>\n\
                                 <li><a href='#'>System Information</a></li>\n\
@@ -118,9 +141,10 @@ function editCust(id){
                             <div class='uk-form-controls'>\n\
                                 <input class='uk-input' type='text' placeholder='" + data[0].CustName + "' name='companyName' value='" + data[0].CustName + "' required>\n\
                             </div>\n\
-                        </div>\n\
+                        </div><br>\n\
+                        \n\<input type='hidden' name='id' value='" + id + "'\n\
                         <br>\n\
-                        <input type='hidden' name='_token' value='{{ csrf_token() }}'>\n\
+                        <input type='hidden' name='_token' value='" + token + "'>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Street 1</label>\n\
                             <div class='uk-form-controls'>\n\
@@ -251,34 +275,34 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Sage Version #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Sage Version #' name='sagenum'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].SageVersion + "' value='" + data[0].SageVersion + "'  name='sagenum'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>PulseStore Shop #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='PulseStore Shop #' name='pulsestorenumber'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].PulseStoreShopNumber + "' value='" + data[0].PulseStoreShopNumber + "'  name='pulsestorenumber'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>PulseStore Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='PulseStore Password' name='pulsestorepassword'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].PulseStorePassword + "' value='" + data[0].PulseStorePassword + "'  name='pulsestorepassword'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Special Upgrade Requirements</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <textarea class='uk-textarea' rows='6' placeholder='Upgrade requirements' name='upgradeNotes' ></textarea>\n\
+                                <textarea class='uk-textarea' rows='6' placeholder='" + data[0].SpecialUpgradeNotes + "' value='" + data[0].SpecialUpgradeNotes + "'  name='upgradeNotes' ></textarea>\n\
                             </div>\n\
                         </div>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Network Details</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <textarea class='uk-textarea' rows='6' placeholder='Network Details' name='network' ></textarea>\n\
+                                <textarea class='uk-textarea' rows='6' placeholder='" + data[0].NetworkDetails + "' value='" + data[0].NetworkDetails + "'  name='network' ></textarea>\n\
                             </div>\n\
                         </div>\n\
                     </li>\n\
@@ -358,14 +382,14 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Date paid until</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='date' placeholder='date' name='paidto'>\n\
+                                <input class='uk-input' type='date' placeholder='" + data[0].DatePaidTo + "' value='" + data[0].DatePaidTo + "' name='paidto'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Licence Notes</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <textarea class='uk-textarea' rows='6' placeholder='Licence Notes' name='licenceNotes' ></textarea>\n\
+                                <textarea class='uk-textarea' rows='6' placeholder='" + data[0].LicenceNotes + "' value=''  name='licenceNotes' ></textarea>\n\
                             </div>\n\
                         </div>\n\
                     </li>\n\
@@ -373,104 +397,104 @@ function editCust(id){
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Vow Account #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Vow Account #' name='vowacc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].VowAccNo + "' value='" + data[0].VowAccNo + "'  name='vowacc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Vow Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Vow Password' name='vowpass'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].VowPasword + "' value='" + data[0].VowPassword + "'  name='vowpass'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Vow Discount %</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='number' min='0' max='100' placeholder='Vow Discount' name='vowdisc'>\n\
+                                <input class='uk-input' type='number' min='0' max='100' placeholder='" + data[0].VowDiscount + "' value='" + data[0].VowDiscount + "' name='vowdisc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Spicer Account #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Spicers Account #' name='spicacc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].SpicerAccNo + "' value='" + data[0].SpicerAccNo + "' name='spicacc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Spicers Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Spicers Password' name='spicpass'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].SpicerPassword + "' " + data[0].SpicerPassword + "  name='spicpass'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Antalis Account #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Antalis Account #' name='antacc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].AntalisAccNo + "' value='" + data[0].AntalisAccNo + "' name='antacc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Antalis Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Antalis Password' name='antpass'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].AntalisPassword + "' value='" + data[0].AntalisPassword + "'  name='antpass'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Truline Account #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Truline Account #' name='truacc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].TrulineAccNo + "' value='" + data[0].TrulineAccNo + "' name='truacc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Truline Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Truline Password' name='trupass'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].TrulinePassword + "' value='" + data[0].TrulinePassword + "'  name='trupass'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Beta Account</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Beta Account' name='betaacc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].BeteAccNo + "' value='" + data[0].BetaAccNo + "'  name='betaacc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Beta Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Beta Password' name='betapass'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].BetaPassword + "' value='" + data[0].BetaPassword + "' name='betapass'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Exertis Account #</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Exertis Account #' name='exertacc'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].ExertisAccNo + "' value='" + data[0].ExertisAccNo + "' name='exertacc'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Exertis Password</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Exertis Password' name='exertpass'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].ExertisPassword + "' value='" + data[0].ExertisPassword + "'  name='exertpass'>\n\
                             </div>\n\
                         </div>\n\
                         <br>\n\
                         <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Buying Group</label>\n\
                             <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Buying Group' name='buyinggroup'>\n\
+                                <input class='uk-input' type='text' placeholder='" + data[0].BuyingGroup + "' value='" + data[0].BuyingGroup + "' name='buyinggroup'>\n\
                             </div>\n\
                         </div>\n\
                     </li>\n\
                 </ul>\n\
                 <br>\n\
-                <input type='submit' class='btn btn-primary' value='save' onClick='validate();'>\n\
+                <input type='submit' class='btn btn-primary' value='save' >\n\
             </form>\n\ ";
             console.log('------------------------------');             
             console.log(data[0]);
@@ -482,7 +506,7 @@ function editCust(id){
             if(data[0].hosted == 1){
                 $("input[name='hosted']").prop('checked', true);
             }
-            if(data[0].StockControl == 1){
+            if(data[0].StockControl == 0){
                 $("input[name='stock']").prop('checked', true);
             }
             $('.uk-modal-footer').hide(); 

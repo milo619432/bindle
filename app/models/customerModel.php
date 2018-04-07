@@ -501,4 +501,136 @@ class customerModel extends Model
             //todo log errors
         }
     }
+    
+    public function editCustomer($details)
+    {
+        try
+        {            
+            $result = [
+                'status' => null,
+                'message' => null
+            ];
+            //if form details are here, deal with checkbox values and insert base customer data
+            if($details)
+            {                
+                if($details['terminalServer'] == null)
+                        {
+                            $details['terminalServer'] = 0;
+                        }
+                        else 
+                        {
+                            $details['terminalServer'] = 1;
+                        }
+                        if($details['pulseStore'] == null)
+                        {
+                            $details['pulseStore'] = 0;
+                        }
+                        else
+                        {
+                            $details['pulseStore'] = 1;
+                        }
+            
+                if($details['hosted'] == null)
+                {
+                    $details['hosted'] = 0;
+                }
+                else
+                {
+                    $details['hosted'] = 1;
+                }
+                if($details['onHold'] == null)
+                {
+                    $details['onHold'] = 0;
+                } else 
+                {
+                    $details['onHold'] = 1;
+                }
+                if($details['stock'] == null)
+                {
+                    $details['stock'] = 0;
+                }
+                else 
+                {
+                    $details['stock'] = 1;
+                }
+            }
+            if(null == $details['licenceEnd'])
+            {
+                $details['licenceEnd'] = date('Y-m-d');
+            }
+            if(null == $details['licenceToDate'])
+            {
+                $details['licenceToDate'] = date('Y-m-d');
+            }
+            if(null == $details['paidTo'])
+            {
+                $details['paidTo'] = date('Y-m-d');
+            }
+            if(null == $details['installDate'])
+            {
+                $details['installDate'] = date('Y-m-d');
+            }
+            
+            $updateResult = DB::update("UPDATE customers SET "
+                    . "CustCode='" . $details['accCode'] . "', "
+                    . "CustName='" .  $details['companyName'] ."', "
+                    . "Street1='" . $details['street1'] . "', "
+                    . "Street2='" . $details['street2']  . "', "
+                    . "Town='" . $details['town'] . "', "
+                    . "County='" . $details['county'] . "', "
+                    . "Postcode='" . $details['postcode'] . "', "
+                    . "MainPhone='" . $details['mainPhone'] . "', "
+                    . "Fax='" . $details['fax'] . "', "
+                    . "MainEmail='" . $details['mainEmail'] . "', "
+                    . "LicenceExpiry='" . $details['licenceEnd'] . "', "
+                    . "DatePaidTo='" . $details['paidTo'] . "', "
+                    . "OnHold='" . $details['onHold'] . "', "
+                    . "Comments='" . $details['comments'] . "', "
+                    . "StockControl='" . $details['stock'] . "', "
+                    . "LicenceToDate='" . $details['licenceToDate'] . "', "
+                    . "LicenceNotes='" . $details['licenceNotes'] . "', "
+                    . "SpecialUpgradeNotes='" . $details['upgradeNotes'] . "', "
+                    . "InstallDate='" . $details['installDate'] . "' "
+                    . "WHERE CustID = " . $details['id'] . ";"
+                    );
+            $systemDataResult = DB::update("UPDATE systemdata SET "
+                    . " PulseVersion='" . $details['pulseOfficeVersion'] . "', "
+                    . " OPXMLPC='" . $details['opxmlPc'] . "', "
+                    . " SageLinkPC='" . $details['sagePc'] . "', "
+                    . " PulseLinkPC='" . $details['pulseLinkPc'] . "', "
+                    . " TerminalServer='" . $details['terminalServer'] . "', "
+                    . " VowAccNo='" . $details['vowAcc'] . "', "
+                    . " VowPassword='" . $details['vowPass'] . "', "
+                    . " VowDiscount='" . $details['vowDisc'] . "', "
+                    . " SpicerAccNo='" . $details['spicAcc'] . "', "
+                    . " SpicerPassword='" . $details['spicPass'] . "', "
+                    . " AntalisAccNo='" . $details['antAcc'] . "', "
+                    . " AntalisPassword='" . $details['antPass'] . "', "
+                    . " TrulineAccNo='" . $details['truacc'] . "', "
+                    . " TrulinePassword='" . $details['truPass'] . "', "
+                    . " BetaAccNo='" . $details['betaAcc'] . "', "
+                    . " BetaPassword='" . $details['betaPass'] . "', "
+                    . " ExertisAccNo='" . $details['exertisAcc'] . "', "
+                    . " ExertisPassword='" . $details['exertisPass'] . "', "
+                    . " SageVersion='" . $details['sageVersion'] . "', "
+                    . " NetworkDetails='" . $details['networkDetails'] .  "', "
+                    . " PulseStore='" . $details['pulseStore'] . "', "
+                    . " PulseStoreShopNumber='" . $details['pulsestoreNumber'] . "', "
+                    . " BuyingGroup='" . $details['buyingGroup'] . "', "
+                    . " PulseStorePassword='" . $details['pulsestorePassword'] .  "', "
+                    . " hosted='" . $details['hosted'] . "' "
+                    . " WHERE custID = " . $details['id'] . "");
+
+
+                $result['status'] = true;
+                $result['message'] = "Updates successful";
+                return $result;
+
+        } catch (Exception $ex) {            
+                $result['status'] = false;
+                $result['message'] = "Updates false";
+                return $result;
+            //todo log errors
+        }
+    }
 }

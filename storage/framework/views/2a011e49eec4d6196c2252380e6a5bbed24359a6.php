@@ -31,7 +31,7 @@
                         <li class="uk-active"><a href="<?php echo e(route('layouts.main')); ?>">Home</a></li>                        
                         <li class="uk-nav-header">Support</li>
                         <li><a href="<?php echo e(route('layouts.customermenu')); ?>"><span class="uk-margin-small-right"></span> Customers</a></li>
-                        <li><a href=""><span class="uk-margin-small-right"></span> Wholesalers and dealer groups</a></li>
+                        <li><a href="<?php echo e(route('layouts.suppliers')); ?>"><span class="uk-margin-small-right"></span> Wholesalers and dealer groups</a></li>
                         <li><a href="<?php echo e(route('layouts.issues')); ?>"><span class="uk-margin-small-right"></span> Issues</a></li>
                         <li><a href="<?php echo e(route('layouts.reports')); ?>"><span class="uk-margin-small-right"></span> Reports</a></li>
                         <li><a href="<?php echo e(route('layouts.knowledgebase')); ?>"><span class="uk-margin-small-right"></span> Knowledge base</a></li>

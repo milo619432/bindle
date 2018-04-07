@@ -209,4 +209,77 @@ class customerController extends Controller
             //todo log errors
         }
     }
+    
+    public function editCustomer(request $request)
+    {
+        try
+        {
+            $editCustomerArray = 
+                [
+                    'id' => $request->id, 
+                    'accCode' => $request->code,
+                    'companyName' => $request->companyName,
+                    'street1' => $request->street1,
+                    'street2' => $request->street2,
+                    'town' => $request->town,
+                    'county' => $request->county,
+                    'postcode' => $request->postcode,
+                    'mainPhone' => $request->mainphone,
+                    'fax' => $request->fax,
+                    'mainEmail' => $request->mainemail,
+                    'comments' => $request->comments,
+                    'installDate' => $request->install,
+                    'hosted' => $request->hosted,
+                    'stock' => $request->stock,
+                    'pulseStore' => $request->pulseStore,
+                    'terminalServer' => $request->terminalserver,
+                    'pulseOfficeVersion' => $request->pulseVersion,
+                    'opxmlPc' => $request->opxmlpc,
+                    'sagePc' => $request->sagepc,
+                    'pulseLinkPc' => $request->pulselinkpc, 
+                    'sageVersion' => $request->sagenum,
+                    'pulsestoreNumber' => $request->pulsestorenumber,
+                    'pulsestorePassword' => $request->pulsestorepassword,
+                    'upgradeNotes' => $request->upgradeNotes,
+                    'networkDetails' => $request->network,
+                    'licenceEnd' => $request->expiry,
+                    'onHold' => $request->onhold,
+                    'paidTo' => $request->paidto,
+                    'licenceNotes' => $request->licenceNotes,
+                    'licenceToDate' => $request->licenceToDate,
+                    'vowAcc' => $request->vowacc,
+                    'vowPass' => $request->vowpass,
+                    'vowDisc' => $request->vowdisc,
+                    'spicAcc' => $request->spicacc,
+                    'spicPass' => $request->spicpass,
+                    'antAcc' => $request->antacc,
+                    'antPass' => $request->antpass,
+                    'truacc' => $request->truacc,
+                    'truPass' => $request->trupass,
+                    'betaAcc' => $request->betaacc,
+                    'betaPass' => $request->betapass,
+                    'exertisAcc' => $request->exertacc,
+                    'exertisPass' => $request->exertpass,
+                    'buyingGroup' => $request->buyinggroup
+                ];
+
+                $ammendedCustomer = new customerModel();
+                $ammendCustomerResult = $ammendedCustomer->editCustomer($editCustomerArray);
+                
+                if($ammendCustomerResult['status'] == true)
+                {
+                    $resultMessage = "<div class='alert alert-success' style='text-align:center'>Customer " . $editCustomerArray['companyName'] . " successfully edited.</div>";
+                }
+                else
+                {
+                    $resultMessage = "<div class='alert alert-success' style='text-align:center'>Customer " . $editCustomerArray['companyName'] . " editing failed.</div>";
+                }
+                
+                $allCustomers = $ammendedCustomer->getAllCustomers();
+
+                return view('layouts.customermenu', ['result' => $resultMessage], ['customers' => $allCustomers]);
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
 }
