@@ -26,7 +26,7 @@
             <div class="alert alert-danger" id="requiredFields" hidden>
                 <p>The following fields are required before the account can be created.</p>
             </div>
-            <form class="uk-grid-small uk-form-horizontal" uk-grid action="{{action('supplierController@addSupplier')}}" method="post">                
+            <form class="uk-grid-small uk-form-horizontal" uk-grid action="{{action('suppliersController@addSupplier')}}" method="post">                
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Account Code</label>
                             <div class="uk-form-controls">

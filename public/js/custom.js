@@ -12,7 +12,7 @@ $(document).ready(function(){
 
 //populate wholesalers table
 function getSuppliers(){
-    if(window.location.href.indexOf("suppliers") > -1){
+    if(window.location.href.indexOf("suppliers") > -1 || window.location.href.indexOf("addSupplier") > -1){
         $.getJSON("/suppliers/allSuppliers", 
             function(data){
                 if(data.length > 0 && typeof(data) != "undefined"){
@@ -21,10 +21,33 @@ function getSuppliers(){
                     }
                     else
                     {
+                        var table = "<table class='table table-striped table-hover' id='suppTable'>\n\
+                        <thead><tr><th></th>\n\
+                        <th scope='col'>Code</th>\n\
+                        <th scope='col'>Company Name</th>\n\
+                        <th scope='col'>Main Phone</th>\n\
+                        <th scope='col'>Main Email</th>\n\
+                        </tr>\n\
+                        </thead>\n\
+                        <tbody>";            
+                        $(data).each(function(key, item){
+                            console.log(item);
+                            var id = item.suppID;
+                            table += "<tr id='suppRow' onclick='editSupp(" + id + ")'>";
+                            table += "<th><input type='checkbox'></th>";
+                            table += "<th>" + item.code +"</th>";
+                            table += "<th>" + item.name +"</th>";
+                            table += "<th>" + item.mainPhone +"</th>";
+                            table += "<th>" + item.mainEmail +"</th>";
+                            table += "</tr>"; 
+                        });
                         
                     }
-                } 
+                }
+                table += "</tbody>";
+                table += "</table>";   
                 $('#suppTableDiv').html(table);
+                $('#suppTable').DataTable();
                 $('#loader').hide();
             });          
     };

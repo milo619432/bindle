@@ -101,4 +101,4 @@ Route::post('/addCustomer', 'customerController@addSingleCustomer');
 
 Route::post('/editCustomer', 'customerController@editCustomer');
 
-Route::post('/addSupplier', 'supplierController@addSupplier');
+Route::post('/addSupplier', 'suppliersController@addSupplier');
