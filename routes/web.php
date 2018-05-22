@@ -32,6 +32,9 @@ Route::get('/suppliers/allSuppliers', 'suppliersController@getSuppliers');
 //ajax route for single customer, to populate edit customer modal
 Route::get('/customers/singleCustomer', 'customerController@getSingleCustomer');
 
+//ajax call to get single supplier
+Route::get('/suppliers/singleSupplier', 'suppliersController@getSingleSupplier');
+
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
 Route::get('/customers' ,function(){

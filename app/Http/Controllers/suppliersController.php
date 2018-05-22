@@ -73,4 +73,18 @@ class suppliersController extends Controller
 
         }
     }
+    
+    public function getSingleSupplier()
+    {
+        try
+        {
+            $id = $_GET['queryString'];
+            $supplier = new suppliersModel();
+            $thisSupplier = $supplier->getSingleSupplier($id);
+            $singleSuppJSON = json_encode($thisSupplier);
+            echo $singleSuppJSON;
+        } catch (Exception $ex) {
+            //todo log errors
+        }
+    }
 }

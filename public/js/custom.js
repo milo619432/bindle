@@ -131,6 +131,22 @@ function getCust(){
    } 
 };
 
+//get single supplier for edit supp modal
+function editSupp(id){
+    //alert(id);
+    $.getJSON("suppliers/singleSupplier",{
+        queryString: id
+    },
+        function(data){
+            if(data.length > 0 && typeof(data) != 'undefined'){
+                console.log(data);
+            } else
+            {
+                //handle errors
+            }
+        });
+};
+
 //get single customer to populate edit cust modal. (customerController.php/getSingleCustomer()).
 function editCust(id){
     $.getJSON("customers/singleCustomer",{
@@ -518,9 +534,7 @@ function editCust(id){
                 </ul>\n\
                 <br>\n\
                 <input type='submit' class='btn btn-primary' value='save' >\n\
-            </form>\n\ ";
-            console.log('------------------------------');             
-            console.log(data[0]);
+            </form>\n\ ";            
             UIkit.modal.alert("<div id='editCustForm'><h3 style='text-align: center;'>Editing customer : " + data[0].CustName + "</h3><br> " + custForm + "</div>");
             $('.uk-modal-dialog').css('width','80%');
             if(data[0].PulseStore == 1){

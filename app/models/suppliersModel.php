@@ -18,6 +18,36 @@ class suppliersModel extends \Illuminate\Support\Facades\DB
         }
     }
     
+    public function getSingleSupplier($id)
+    {
+        try
+        {
+            $resultMessage = [
+                'status' => null,
+                'message' => null
+                
+            ];
+            if($id)
+            {
+                $supplier = DB::select("SELECT * FROM suppliers WHERE suppID = " . $id . ";");
+            } else
+            {
+                $resultMessage['message'] = "No ID supplied";
+            }
+                if(sizeof($supplier) > 0)
+                {
+                    return $supplier;
+                } 
+                else 
+                {
+                    return $resultMessage;
+                }
+            
+        } catch (Exception $ex) {
+            //todo log error
+        }
+    }
+    
     public function addSupplier($newSupplier)
     {
         try
