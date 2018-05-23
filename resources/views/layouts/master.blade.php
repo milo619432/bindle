@@ -54,6 +54,7 @@
         @yield('pulsestore')
         @yield('pulsecloud')
         @yield('wishlist')
+        @yield('holiday')
         <?php
             } else {
                 die('<div id=notallowed>

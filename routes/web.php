@@ -37,6 +37,10 @@ Route::get('/suppliers/singleSupplier', 'suppliersController@getSingleSupplier')
 
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
+Route::get('holidays', function(){
+    return view('layouts.holiday');
+})->name('holiday');
+
 Route::get('/customers' ,function(){
  return view('layouts.customermenu')   ;
 })->name('layouts.customermenu');
