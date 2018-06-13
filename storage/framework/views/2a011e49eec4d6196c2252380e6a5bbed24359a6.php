@@ -39,7 +39,7 @@
                         <li class="uk-nav-header">Site Admin</li>
                         <li><a href="<?php echo e(route('layouts.admin')); ?>"><span class="uk-margin-small-right">Site Admin</span></a></li>
                         <li class="uk-nav-divider"></li>
-                        <li><a href="">Holiday Calendar</a></li>
+                        <li><a href="<?php echo e(route('holiday')); ?>">Holiday Calendar</a></li>
                     </ul>
                 </div>
             </div>

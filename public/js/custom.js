@@ -182,6 +182,7 @@ function getCust(){
  
     
 
+
 function editIssue(id){
     $.getJSON("issues/editIssue",{
        queryString: id 
@@ -241,6 +242,34 @@ function editIssue(id){
         }            
     );
 }
+
+//get single supplier for edit supp modal
+function editSupp(id){
+    alert(id);
+    $.getJSON("suppliers/singleSupplier",{
+        queryString: id
+    },
+        function(data){
+            if(data.length > 0 && typeof(data) != 'undefined'){
+                var token = "{{ csrf_token }}";
+                var suppForm = '<form class="uk-grid-small uk-form-horizontal" uk-grid action="/editSupplier" method="post">\n\
+                \n\<div class="uk-width-1-2@s">\n\
+                \n\<label class="uk-form-label" for="form-horizontal-text">Account Code</label>\n\
+                \n\<div class="uk-form-controls">\n\
+                \n\<input class="uk-input" type="text" placeholder="' + data[0].code + '" value="' + data[0].code + '" name="code" required>\n\
+                \n\</div>\n\
+                \n\</div>\n\
+                \n\<br>\n\
+                </form>';
+                UIkit.modal.alert("<div id='editSuppForm'><h3 style='text-align: center;'>Editing Supplier : " + data[0].name + "</h3><br> " + suppForm + "</div>");
+                console.log(data);
+            } else
+            {
+                //handle errors
+            }
+        });
+};
+
 
 //get single customer to populate edit cust modal. (customerController.php/getSingleCustomer()).
 function editCust(id){

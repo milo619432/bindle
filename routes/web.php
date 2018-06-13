@@ -49,6 +49,10 @@ Route::get('/issues/editIssue', 'issuesController@getSingleIssue');
 
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
+Route::get('holidays', function(){
+    return view('layouts.holiday');
+})->name('holiday');
+
 Route::get('/customers' ,function(){
  return view('layouts.customermenu')   ;
 })->name('layouts.customermenu');

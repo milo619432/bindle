@@ -54,6 +54,7 @@
         <?php echo $__env->yieldContent('pulsestore'); ?>
         <?php echo $__env->yieldContent('pulsecloud'); ?>
         <?php echo $__env->yieldContent('wishlist'); ?>
+        <?php echo $__env->yieldContent('holiday'); ?>
         <?php
             } else {
                 die('<div id=notallowed>
