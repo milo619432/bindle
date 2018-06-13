@@ -13,7 +13,7 @@ class newUser extends \Illuminate\Support\Facades\DB
     {
         try
         {
-            $results = DB::select('SELECT * FROM heartuser');
+            $results = DB::select('SELECT * FROM heartuser');            
             return $results;
         } catch (Exception $ex) {
             //todo log errors

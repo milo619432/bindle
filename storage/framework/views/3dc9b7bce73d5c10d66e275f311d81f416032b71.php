@@ -25,15 +25,15 @@
         <!-- UIkit JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.28/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.28/js/uikit-icons.min.js"></script>
-        <body style="background-color: #FAEBD7; height: 100%">    
+        <body style="background: url(../images/gotham.jpg) center center; height:100%;">    
 
 <div class="uk-container-center">    
     <div class="uk-child-width-expand@s uk-text-center" uk-grid>
     <div>
         <div class="uk-card uk-card-default uk-card-body" hidden></div>
     </div>
-    <div>
-        <div class="uk-card uk-card-default uk-card-body">
+        <div id="login" style="background-color: transparent">
+        <div class="uk-card uk-card-default uk-card-body" >
             <h1>Welcome to Bindle</h1>
             <span uk-icon="icon: unlock; ratio: 4"></span>
             <h2>Please enter your Email address and password. </h2>

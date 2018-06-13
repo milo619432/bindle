@@ -23,8 +23,17 @@ Route::get('/dash', function () {
     return view('layouts.main');
 })->name('layouts.main');
 
+//ajax call for users
+Route::get('/issues/getUsers', 'issuesController@getUsers');
+
 //ajax route to get customers
 Route::get('/customers/allCustomers', 'customerController@getCustomers');
+
+//ajax route to get all issues
+Route::get('/issues/getIssues', 'issuesController@getIssues');
+
+//ajax route for dash panels
+Route::get('/dash/panels', 'issuesController@issuesStats');
 
 //ajax route get all suppliers
 Route::get('/suppliers/allSuppliers', 'suppliersController@getSuppliers');
@@ -32,8 +41,11 @@ Route::get('/suppliers/allSuppliers', 'suppliersController@getSuppliers');
 //ajax route for single customer, to populate edit customer modal
 Route::get('/customers/singleCustomer', 'customerController@getSingleCustomer');
 
+//ajax route for editing issues
+Route::get('/issues/editIssue', 'issuesController@getSingleIssue');
+
 //ajax call to get single supplier
-Route::get('/suppliers/singleSupplier', 'suppliersController@getSingleSupplier');
+//Route::get('/suppliers/singleSupplier', 'suppliersController@getSingleSupplier');
 
 Route::get('/admin', 'newUserController@getUsers')->name('layouts.admin');
 
@@ -102,6 +114,10 @@ Route::get('/activateUser', 'newUserController@activateUser');
 
 Route::post('/addCustomer', 'customerController@addSingleCustomer');
 
+Route::post('/addIssue', 'issuesController@addIssue');
+
 Route::post('/editCustomer', 'customerController@editCustomer');
+
+Route::post('/editIssue', 'issuesController@editIssue');
 
 Route::post('/addSupplier', 'suppliersController@addSupplier');

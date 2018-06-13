@@ -30,24 +30,11 @@
                     <ul class="uk-nav uk-nav-default">
                         <li class="uk-active"><a href="<?php echo e(route('layouts.main')); ?>">Home</a></li>                        
                         <li class="uk-nav-header">Support</li>
-                        <li><a href="<?php echo e(route('layouts.customermenu')); ?>"><span class="uk-margin-small-right"></span> Customers</a></li>
-                        <li><a href="<?php echo e(route('layouts.suppliers')); ?>"><span class="uk-margin-small-right"></span> Wholesalers and dealer groups</a></li>
-                        <li><a href="<?php echo e(route('layouts.issues')); ?>"><span class="uk-margin-small-right"></span> Issues</a></li>
-                        <li><a href="<?php echo e(route('layouts.reports')); ?>"><span class="uk-margin-small-right"></span> Reports</a></li>
-                        <li><a href="<?php echo e(route('layouts.knowledgebase')); ?>"><span class="uk-margin-small-right"></span> Knowledge base</a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class="uk-nav-header">Sales</li>
-                        <li><a href="<?php echo e(route('layouts.prospects')); ?>"><span class="uk-margin-small-right"></span> Prospects</a></li>
-                        <li><a href="<?php echo e(route('layouts.salesnotes')); ?>"><span class="uk-margin-small-right"></span> Notes</a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class="uk-nav-header">Accounts</li>
-                        <li><a href="<?php echo e(route('layouts.accounts')); ?>"><span class="uk-margin-small-right"></span> Reports</a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class="uk-nav-header">Development</li>
-                        <li><a href="<?php echo e(route('layouts.pulseofficeversiondata')); ?>"><span class="uk-margin-small-right"></span> Pulse Office Version Data</a></li>
-                        <li><a href="<?php echo e(route('layouts.pulsestore')); ?>"><span class="uk-margin-small-right"></span> Pulse Store revisions</a></li>
-                        <li><a href="<?php echo e(route('layouts.pulsecloud')); ?>"><span class="uk-margin-small-right"></span> Pulse Cloud revisions</a></li>
-                        <li><a href="<?php echo e(route('layouts.wishlist')); ?>"><span class="uk-margin-small-right"></span> Wish list</a></li>
+                        <li><a href="<?php echo e(route('layouts.customermenu')); ?>"><span class="uk-margin-small-right"></span> Customers</a></li>                        
+                        <li><a href="<?php echo e(route('layouts.issues')); ?>"><span class="uk-margin-small-right"></span> Issues</a></li>                        
+                        <li class="uk-nav-divider"></li>                        
+                        <li class="uk-nav-header">Development</li>                                                
+                        <!--<li><a href="<?php echo e(route('layouts.wishlist')); ?>"><span class="uk-margin-small-right"></span> Wish list/Bug list</a></li>-->
                         <li class="uk-nav-divider"></li>
                         <li class="uk-nav-header">Site Admin</li>
                         <li><a href="<?php echo e(route('layouts.admin')); ?>"><span class="uk-margin-small-right">Site Admin</span></a></li>

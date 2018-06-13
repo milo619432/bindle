@@ -4,60 +4,120 @@ $(document).ready( function () {
 });
 
 $(document).ready(function(){
-  getCust();  
-  getSuppliers();
+    getCust();  
+    if(window.location.href.indexOf('issues') > -1 || window.location.href.indexOf('addIssue') > -1 || window.location.href.indexOf('dash') > -1 || window.location.href.indexOf('login') > -1){
+        getIssues();
+    }  
+});
+
+$(document).ready(function(){
+   if(window.location.href.indexOf('login') > -1) {
+       url = "/dash";
+      $(location).attr("href", url);
+   }
+});
+
+//populate modal drop down in issues
+function getAllCusts(){    
+        $.getJSON("/customers/allCustomers",
+        function(data){
+            if(data.length > 0 && typeof(data) != 'undefined'){                
+                var menu = $("#issueCustMenu");                
+                $(data).each(function(key, item){                         
+                menu.append($("<option />").val(item.custID).text(item.CustName));
+       });
+    }   
+})
+}
+
+function getUsers(){    
+        $.getJSON("/issues/getUsers",
+        function(data){
+            if(data.length > 0 && typeof(data) != 'undefined'){ 
+                console.log(data);
+                var menu = $("#assignedTo");                
+                $(data).each(function(key, item){                         
+                menu.append($("<option />").val(item.UserID).text(item.firstName + " " + item.lastName));
+       });
+    }   
+})
+}
+
+$(document).ready(function(){
+    if(window.location.href.indexOf('dash') > -1 ){        
+        $.getJSON("/dash/panels",
+        function(data){        
+        $(data).each(function(key,item){
+            $("#totals").text(item.total[0].COUNT);
+            $("#outstanding").text(item.outstanding[0].outstanding);
+            $("#today").text(item.today[0].TODAY);
+            item.total[0].COUNT
+//            console.log(item.today[0].TODAY);
+//            console.log(item.outstanding[0].outstanding);
+//            console.log(item.total[0].COUNT);
+        })
+        
+//        $("#totals").text("data[0].outstanding");
+       
+    });    
+    }  
 });
 
 
-
-//populate wholesalers table
-function getSuppliers(){
-    if(window.location.href.indexOf("suppliers") > -1 || window.location.href.indexOf("addSupplier") > -1){
-        $.getJSON("/suppliers/allSuppliers", 
-            function(data){
-                if(data.length > 0 && typeof(data) != "undefined"){
-                    if(data == "No suppliers Found"){
-                        var table = "<div class='alert alert-danger alert-dismissible' style='text-align:center'>No suppliers found</div>";
-                    }
-                    else
-                    {
-                        var table = "<table class='table table-striped table-hover' id='suppTable'>\n\
-                        <thead><tr><th></th>\n\
-                        <th scope='col'>Code</th>\n\
-                        <th scope='col'>Company Name</th>\n\
-                        <th scope='col'>Main Phone</th>\n\
-                        <th scope='col'>Main Email</th>\n\
-                        </tr>\n\
-                        </thead>\n\
-                        <tbody>";            
-                        $(data).each(function(key, item){
-                            console.log(item);
-                            var id = item.suppID;
-                            table += "<tr id='suppRow' onclick='editSupp(" + id + ")'>";
-                            table += "<th><input type='checkbox'></th>";
-                            table += "<th>" + item.code +"</th>";
-                            table += "<th>" + item.name +"</th>";
-                            table += "<th>" + item.mainPhone +"</th>";
-                            table += "<th>" + item.mainEmail +"</th>";
-                            table += "</tr>"; 
-                        });
-                        
-                    }
+//populate issues table
+function getIssues(){
+        if(window.location.href.indexOf('issues') > -1 || window.location.href.indexOf('addIssue') > -1 || window.location.href.indexOf('editIssue') > -1 || window.location.href.indexOf('dash') > -1){
+        $("#loader").show();
+        $.getJSON("/issues/getIssues",
+        function(data){
+            if(data.length > 0 && typeof(data) != 'undefined'){
+                console.log(data);
+                var table = "<table class='table table-striped table-hover' id='issueTable'>\n\
+                <thead><tr><th></th>\n\
+                <th scope='col'>Ticket number</th>\n\
+                <th scope='col'>Company Name</th>\n\
+                <th scope='col'>Product</th>\n\
+                <th scope='col'>Issue date</th>\n\
+                <th scope='col'>Issue status</th>\n\
+                <th scope='col'>Symptom</th>\n\
+                </tr>\n\
+                </thead>\n\
+                <tbody>";
+            }
+            $(data).each(function(key, item){
+                var issueID = item.LogID;
+                table += "<tr id='custRow' onclick='editIssue(" + issueID + ")'>";
+                table += "<th><input type='checkbox'></th>";
+                table += "<th>" + item.LogID +"</th>";
+                table += "<th>" + item.CustName +"</th>";
+                table += "<th>" + item.product +"</th>";
+                table += "<th>" + item.DateofIssue +"</th>";
+                if(item.statusID == null){
+                    table += "<th>Live issue</th>";
                 }
-                table += "</tbody>";
-                table += "</table>";   
-                $('#suppTableDiv').html(table);
-                $('#suppTable').DataTable();
-                $('#loader').hide();
-            });          
-    };
+                else
+                {
+                    table += "<th>Closed</th>";
+                }                
+                table += "<th>" + item.Symptoms +"</th>"; 
+                table += "</tr>";
+            });
+            table += "</tbody>";
+            table += "</table>";    
+            $('#issueTableDiv').html(table);
+            $('#issueTable').DataTable();                
+            $('#loader').hide();
+        });    
+        }        
 };
 
-//populate customer table in customers module
-function getCust(){
-   if(window.location.href.indexOf("customers") > -1 || window.location.href.indexOf("editCustomer") > -1 ){  
-       $('#loader').show();
-       $.getJSON("/customers/allCustomers",
+
+
+//populate customer table in customers module or populate dropdown in create issue modal
+function getCust(){   
+        if(window.location.href.indexOf("customers") > -1 || window.location.href.indexOf("editCustomer") > -1 || window.location.href.indexOf("addCustomer") > -1){
+        $('#loader').show();
+        $.getJSON("/customers/allCustomers",
         function(data){
             if(data.length > 0 && typeof(data) != 'undefined'){                
                 var table = "<table class='table table-striped table-hover' id='custTable'>\n\
@@ -106,19 +166,8 @@ function getCust(){
                 table += "<th>Yes</th>";
                 } else {
                 table += "<th>No</th>";
-                }                
-                
-                table += "</tr>"; 
-//                table += "<div id='modal-close-outside' uk-modal>\n\
-//                        <div id='editCustModal-" + item.custID +"' uk-modal class='uk-modal-container'>\n\
-//                        <div class='uk-modal-dialog uk-modal-body'>\n\
-//                        <h4 style='text-align:centre'>Editing account: " + item.CustName +"</h4>\n\
-//                        \n\<div class='alert alert-danger' id='requiredFields' hidden>\n\
-//                        \n\<p>The following fields are required before the account can be created.</p>\n\
-//                        \n\</div>\n\
-//                        </div>\n\
-//                        </div>\n\
-//                        </div>";
+                }                                
+                table += "</tr>";
                 });                
                 table += "</tbody>";
                 table += "</table>";                                
@@ -128,24 +177,70 @@ function getCust(){
            }
            
        });
-   } 
-};
+    } 
+    }
+ 
+    
 
-//get single supplier for edit supp modal
-function editSupp(id){
-    //alert(id);
-    $.getJSON("suppliers/singleSupplier",{
-        queryString: id
+function editIssue(id){
+    $.getJSON("issues/editIssue",{
+       queryString: id 
     },
         function(data){
-            if(data.length > 0 && typeof(data) != 'undefined'){
-                console.log(data);
-            } else
-            {
-                //handle errors
-            }
-        });
-};
+        if(data[0].completionDate != null)
+        {
+            var finished = data[0].completionDate
+        }
+        else
+        {
+            var finished = 'n/a';
+        }
+        var token = "{{ csrf_token() }}";
+        var issueForm = "<button class='uk-modal-close' type='button' style='float: right' uk-close></button>\n\
+                <form class='uk-grid-small uk-form-horizontal' method='post' uk-grid action='/editIssue' >\n\
+                <div id='issueDrops'>\n\
+                    <div class='uk-width-1-2@s' id='drops'>\n\
+                    <input type='hidden' name='_token' value='" + token + "'>\n\
+                    <input type='hidden' name='LogID' value='" + data[0].LogID + "'>\n\
+                    </div>\n\
+                    <div id='uk-width-1-2@s'>\n\
+                        <label class='uk-form-label' for='form-horizontal-text'>Initial symptoms</label>\n\
+                            <div class='uk-form-controls'>\n\
+                                <textarea class='uk-textarea' rows='6' id='mytextarea' placeholder='" + data[0].Symptoms + "'  name='symptoms' >" + data[0].Symptoms + "</textarea>\n\
+                            </div>\n\
+                    </div>\n\
+                <br>\n\
+                <div id='uk-width-1-2@s'>\n\
+                    <label class='uk-form-label' for='form-horizontal-text'>Resolution</label>\n\
+                        <div class='uk-form-controls'>\n\
+                            <textarea class='uk-textarea' rows='6' placeholder='" + data[0].Resolution + "'  name='resolution' >" + data[0].Resolution + "</textarea>\n\
+                        </div>\n\
+                </div>\n\
+                <br>\n\
+                <div class='uk-width-1-2@s'>\n\
+                    <label class='uk-form-label' for='form-horizontal-text'>Completion date: </label>\n\
+                    <div class='uk-form-controls'>\n\
+                        <input class='uk-input' type='date' name='completionDate' value=''>\n\
+                    </div>\n\
+                </div>\n\
+                <br>\n\
+                <div id='inputGroup'>\n\
+                    <input type='submit' class='btn btn-primary' value='save' >\n\
+                </div>\n\
+                </div>\n\
+                </div>\n\
+            </form>";
+
+        UIkit.modal.alert("<div id='createIssue'><h3 style='text-align: center;'>Editing ticket # : " + data[0].LogID + "</h3><br><h4>Customer: " + data[0].CustName + "</h4>\n\
+        <br><h4>Assigned to: " + data[0].firstName + " " + data[0].lastName +"</h4><h4>Product: " + data[0].product + "</h4><br>\n\
+        <h4>Issue Date: " + data[0].DateofIssue + "</h4><br>" + issueForm + "</div>");
+        $('.uk-modal-dialog').css('width','80%');
+        $(".uk-modal-footer").hide();
+        getUsers();
+        getAllCusts();
+        }            
+    );
+}
 
 //get single customer to populate edit cust modal. (customerController.php/getSingleCustomer()).
 function editCust(id){
@@ -158,11 +253,11 @@ function editCust(id){
             var custForm = "<button class='uk-modal-close' type='button' style='float: right' uk-close></button><br><div class='alert alert-danger' id='requiredFields' hidden>\n\
                             <p>The following fields are required before the account can be created.</p>\n\
                             </div>\n\
+                            <div id='issueDrops'>\n\
                             <form class='uk-grid-small uk-form-horizontal' method='post' uk-grid action='/editCustomer' >\n\
                             <ul class='uk-subnav uk-subnav-pill' uk-switcher>\n\
                                 <li><a href='#'>Customer Information</a></li>\n\
                                 <li><a href='#'>System Information</a></li>\n\
-                                <li><a href='#'>Customer Contact Details</a></li>\n\
                                 <li><a href='#'>Accounts Information</a></li>\n\
                                 <li><a href='#'>Wholesaler Link Information</a>\n\
                             </ul>\n\
@@ -347,57 +442,6 @@ function editCust(id){
                     </li>\n\
                     <li>\n\
                         <div class='uk-width-1-2@s'>\n\
-                            <label class='uk-form-label' for='form-horizontal-text'>First Name</label>\n\
-                            <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='First Name' name='conFirstName0'>\n\
-                            </div>\n\
-                        </div>\n\
-                        <br>\n\
-                        <div class='uk-width-1-2@s'>\n\
-                            <label class='uk-form-label' for='form-horizontal-text'>Last Name</label>\n\
-                            <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Last Name' name='conLastName0'>\n\
-                            </div>\n\
-                        </div>\n\
-                        <br>\n\
-                        <div class='uk-width-1-2@s'>\n\
-                            <label class='uk-form-label' for='form-horizontal-text'>Phone</label>\n\
-                            <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='text' placeholder='Phone Number' name='conPhoneNumber0'>\n\
-                            </div>\n\
-                        </div>\n\
-                        <br>\n\
-                        <div class='uk-width-1-2@s'>\n\
-                            <label class='uk-form-label' for='form-horizontal-text'>Email</label>\n\
-                            <div class='uk-form-controls'>\n\
-                                <input class='uk-input' type='email' placeholder='Email' name='conEmail0'>\n\
-                            </div>\n\
-                        </div>\n\
-                        <br>\n\
-                        <div class='uk-width-1-2@s'>\n\
-                            <label class='uk-form-label' for='form-horizontal-text'>Main Contact?</label>\n\
-                            <div class='uk-form-controls'>\n\
-                                <input class='uk-checkbox' type='checkbox' name='conMain0' >\n\
-                            </div>\n\
-                        </div>\n\
-                        <br>\n\
-                        <div class='uk-margin'>\n\
-                            <label class='uk-form-label' for='form-horizontal-select'>Select Main Role</label>\n\
-                            <div class='uk-form-controls'>\n\
-                                <select class='uk-select' name='conRoleChoice0'>\n\
-                                    <option value='1'>1</option>\n\
-                                    <option value='2'>2</option>\n\
-                                    <option value='3'>3</option>\n\
-                                </select>\n\
-                            </div>\n\
-                        </div>\n\
-                        <br>\n\
-                        <hr>\n\
-                        <div id='additionalContacts'></div>\n\
-                        <a href='#' onclick='moreContactFields();'>Add More Contacts?</a>\n\
-                    </li>\n\
-                    <li>\n\
-                        <div class='uk-width-1-2@s'>\n\
                             <label class='uk-form-label' for='form-horizontal-text'>Licence Expiry Date</label>\n\
                             <div class='uk-form-controls'>\n\
                                 <input class='uk-input' type='date' placeholder='date' name='expiry'>\n\
@@ -534,7 +578,8 @@ function editCust(id){
                 </ul>\n\
                 <br>\n\
                 <input type='submit' class='btn btn-primary' value='save' >\n\
-            </form>\n\ ";            
+            </form>\n\
+            </div>\n\ ";            
             UIkit.modal.alert("<div id='editCustForm'><h3 style='text-align: center;'>Editing customer : " + data[0].CustName + "</h3><br> " + custForm + "</div>");
             $('.uk-modal-dialog').css('width','80%');
             if(data[0].PulseStore == 1){
@@ -551,7 +596,7 @@ function editCust(id){
                 $("input[name='terminalserver']").prop('checked', true);
             }
         } else {
-           //made a fucky boingo  
+           //made a whoops
         };
     });    
 };
@@ -580,65 +625,4 @@ function validate(){
     };
 };
 
-//add extra contact fields to create customr form
-function moreContactFields(){
-    if(count < 5)
-    {
-        count = count + 1;
-    var moreFields = "<div class='uk-width-1-2@s'>\n\
-\n\<label class='uk-form-label' for='form-horizontal-text'>First Name</label>\n\
-\n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='text' placeholder='First Name' name='conFirstName" + count +"' required>\n\
-\n\</div>\n\
-\n\</div>\n\
-\n\<br>\n\
-\n\<div class='uk-width-1-2@s'>\n\
-\n\<label class='uk-form-label' for='form-horizontal-text'>Last Name</label>\n\
-\n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='text' placeholder='Last Name' name='conLastName" + count +"' required>\n\
-\n\</div>\n\
-\n\</div>\n\
-\n\<br>\n\
-\n\<div class='uk-width-1-2@s'>\n\
-\n\<label class='uk-form-label' for='form-horizontal-text'>Phone Number</label>\n\
-\n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='text' placeholder='Phone Number' name='conPhoneNumber" + count +"'>\n\
-\n\<input type='hidden' name='count' value='" + count +"'\n\
-\n\</div>\n\
-\n\</div>\n\
-\n\<br>\n\
-\n\<div class='uk-width-1-2@s'>\n\
-<label class='uk-form-label' for='form-horizontal-text'>Email</label>\n\
-\n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-input' type='email' placeholder='Email' name='conEmail" + count +"' required>\n\
-\n\</div>\n\
-\n\</div>\n\
-\n\<br>\n\
-\n\<div class='uk-width-1-2@s'>\n\
-\n\<label class='uk-form-label' for='form-horizontal-text'>Main Contact?</label>\n\
-\n\<div class='uk-form-controls'>\n\
-\n\<input class='uk-checkbox' type='checkbox' name='conMain" + count +"' >\n\
-\n\</div>\n\
-\n\</div>\n\
-\n\<div class='u-k-margin'>\n\
-<label class='uk-form-label' for='form-horizontal-select'>Select Main Role</label>\n\
-\n\<div class='uk-form-controls'>\n\
-\n\<select class='uk-select' name='conRoleChoice" + count +"'>\n\
-\n\<option value='1'>1</option>\n\
-\n\<option value='2'>2</option>\n\
-\n\<option value='3'>3</option>\n\
-\n\</select>\n\
-\n\</div>\n\
-\n\</div>\n\
-\n\<br>\n\
-\n\<hr>\n\
-\n\<br>\n\
-</div>";    
-    $("#additionalContacts").append(moreFields);
-    }  
-    else 
-    {
-        var noMoreFields = "<div alert alert-danger><h4>Maximum number of contacts reached</h4></div>";
-    $("#additionalContacts").append(noMoreFields);
-    }
-};
+

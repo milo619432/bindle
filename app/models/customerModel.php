@@ -282,7 +282,7 @@ class customerModel extends Model
         }
     }
     
-    public function addSingleCustomer($details, $contacts)
+    public function addSingleCustomer($details)
     {
         try
         {
@@ -320,6 +320,7 @@ class customerModel extends Model
                 {
                     $details['stock'] = 1;
                 }
+                
                 $results = DB::insert('INSERT INTO customers (CustCode, '
                         . 'CustName, '
                         . 'Street1, '
@@ -441,52 +442,8 @@ class customerModel extends Model
                         
                         //if system details insert successful insert contact data
                         if($systemResult && true == $systemResult)
-                        {
-                            $resultsMessages['systemResult'] = true;
-                            //insert contacts 
-                            $contactCount = 0;
-                            foreach($contacts as $key => $value)
-                            {                                
-                                if($value['conMain' . $contactCount]  == null)
-                                {
-                                    $value['conMain' . $contactCount]  = 0;
-                                } 
-                                else 
-                                {
-                                    $value['conMain' . $contactCount] = 1;
-                                }
-                                
-                                if(strlen($value['conFirstName' . $contactCount]) == 0 )
-                                {
-                                    break;
-                                }
-                                else 
-                                {
-                                    $contactsResult = DB::insert('INSERT INTO contacts ('
-                                        . 'CustID, '
-                                        . 'FirstName, '
-                                        . 'SurName, '
-                                        . 'Phone, '
-                                        . 'Email, '
-                                        . 'MainPulseContact, '
-                                        . 'RoleID) values (?,?,?,?,?,?,?)', 
-                                        [
-                                            $custID,
-                                            $value['conFirstName' . $contactCount] ,
-                                            $value['conLastName'. $contactCount],
-                                            $value['conPhone' . $contactCount],
-                                            $value['conEmail' . $contactCount],
-                                            $value['conMain' . $contactCount ],
-                                            $value['conRole' . $contactCount]
-                                        ]);
-                                $contactCount ++;
-                                }
-                                
-                            }
-                        if($contactsResult && True == $contactsResult)
-                        {
-                            $resultsMessages['contactsResult'] = true;
-                        }
+                        {                        
+                            $resultsMessages['systemResult'] = true;                        
                         }
                         return $resultsMessages;
                     }
@@ -499,6 +456,9 @@ class customerModel extends Model
         }
         catch (Exception $ex) {
             //todo log errors
+            die('$ex');
+            $resultMessages['custResult'] = $ex;
+            return $resultMessages;
         }
     }
     

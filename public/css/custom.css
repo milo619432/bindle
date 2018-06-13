@@ -12,20 +12,16 @@
     text-align: center;
  }
  
-/* #404page{     
-    min-height: 720px;
-    position: relative;
-    height: 100%;
-    background: url(../images/dino.jpg) center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    color: #fff;
-    text-align: center;
- }*/
+ #dashImage{
+      background: url(../images/donald.jpg) center center;
+ }
  
+ #panel {
+     border: 1px solid black;
+     border-radius: 20px;
+     ackground-color:#e0e2e5;
+ }
+
  html, body 
  {
      height: 100vh;
@@ -42,3 +38,14 @@
      width: 100%;
  }
  
+ #issueDrops{
+     border: 1px solid black;
+     border-radius: 25px;
+     background-color:#e0e2e5;
+     width: 100%;
+     padding: 50px;
+ }
+ 
+ #drops{
+     display: inline-block;
+ }

@@ -1,8 +1,6 @@
 <?php $__env->startSection('customertable'); ?>
 <div class="container-fluid">
 <button type="button" class="btn btn-success" uk-toggle="target: #createCustomer">Create Customer Account</button>
-<button type="button" class="btn btn-danger">Delete Selected Accounts</button>
-<button type="button" class="btn btn-danger">Suspend Selected Accounts</button>
 <hr>
 <br>
 <form action="<?php echo e(action('customerController@importCustomers')); ?>" method="post" enctype="multipart/form-data">
@@ -33,11 +31,12 @@
             <div class="alert alert-danger" id="requiredFields" hidden>
                 <p>The following fields are required before the account can be created.</p>
             </div>
+            <div id="issueDrops">
             <form class="uk-grid-small uk-form-horizontal" uk-grid action="<?php echo e(action('customerController@addSingleCustomer')); ?>" method="post">
                 <ul class="uk-subnav uk-subnav-pill" uk-switcher>
                     <li><a href="#">Customer Information</a></li>
                     <li><a href="#">System Information</a></li>
-                    <li><a href="#">Customer Contact Details</a></li>
+                    <!--<li><a href="#">Customer Contact Details</a></li>-->
                     <li><a href="#">Accounts Information</a></li>
                     <li><a href="#">Wholesaler Link Information</a>
                 </ul>
@@ -115,11 +114,7 @@
                         </div>
                         <br>
                         <div class="uk-width-1-2@s">
-                            <label class="uk-form-label" for="form-horizontal-text">Comments</label>
-                            <div class="uk-form-controls">
-                                <textarea class="uk-textarea" rows="6" placeholder="Comments" name='comments' ></textarea>
-                            </div>
-                        </div>
+                            
                         <br>
                         <div class="uk-width-1-2@s">
                             <label class="uk-form-label" for="form-horizontal-text">Install Date</label>
@@ -218,57 +213,6 @@
                                 <textarea class="uk-textarea" rows="6" placeholder="Network Details" name='network' ></textarea>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="uk-width-1-2@s">
-                            <label class="uk-form-label" for="form-horizontal-text">First Name</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="First Name" name='conFirstName0'>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="uk-width-1-2@s">
-                            <label class="uk-form-label" for="form-horizontal-text">Last Name</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Last Name" name='conLastName0'>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="uk-width-1-2@s">
-                            <label class="uk-form-label" for="form-horizontal-text">Phone</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input" type="text" placeholder="Phone Number" name='conPhoneNumber0'>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="uk-width-1-2@s">
-                            <label class="uk-form-label" for="form-horizontal-text">Email</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input" type="email" placeholder="Email" name='conEmail0'>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="uk-width-1-2@s">
-                            <label class="uk-form-label" for="form-horizontal-text">Main Contact?</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-checkbox" type="checkbox" name='conMain0' >
-                            </div>
-                        </div>
-                        <br>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-select">Select Main Role</label>
-                            <div class="uk-form-controls">
-                                <select class="uk-select" name='conRoleChoice0'>
-                                    <option value='1'>1</option>
-                                    <option value='2'>2</option>
-                                    <option value='3'>3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <hr>
-                        <div id="additionalContacts"></div>
-                        <a href='#' onclick="moreContactFields();">Add More Contacts?</a>
                     </li>
                     <li>
                         <div class="uk-width-1-2@s">
@@ -409,6 +353,7 @@
                 <br>
                 <input type="submit" class="btn btn-primary" value="save" onClick="validate();">              
             </form>        
+                </div>
         </div>
     </div>
 </div>
